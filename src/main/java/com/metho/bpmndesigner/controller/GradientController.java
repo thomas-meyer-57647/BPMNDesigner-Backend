@@ -9,7 +9,7 @@ package com.metho.bpmndesigner.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.metho.bpmndesigner.entities.Gradient;
+import com.metho.bpmndesigner.model.Gradient;
 
 /**
  * this is the controller for gradients
