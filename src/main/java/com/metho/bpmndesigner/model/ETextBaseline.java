@@ -8,8 +8,13 @@ package com.metho.bpmndesigner.model;
  --------------------------------------------------------------------------------*/
 
 /**
- * interface for all fill styles
+ * this is the baseline decoration for <code>TextDecoration</code>
  */
-public interface IStyle {
-	EStyleType getStyleType();
+public enum ETextBaseline {
+	TOP,
+	HANGING,
+	MIDDLE,
+	ALPHABETIC,
+	IDEOGRAPHIC,
+	BOTTOM
 }

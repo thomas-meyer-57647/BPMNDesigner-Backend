@@ -15,16 +15,16 @@ import org.springframework.boot.test.context.SpringBootTest;
  * test ColorFillStyle
  */
 @SpringBootTest
-class ColorFillStyleTest {
+class ColorStyleTest {
 
 	/**
 	 * test getType
 	 */
 	@Test
 	void testGetType() {
-		ColorFillStyle color = new ColorFillStyle(255);
+		ColorStyle color = new ColorStyle(255);
 		
-		assertEquals(EFillStyleType.COLOR, color.getFillStyleType());
+		assertEquals(EStyleType.COLOR, color.getStyleType());
 	}
 
 }

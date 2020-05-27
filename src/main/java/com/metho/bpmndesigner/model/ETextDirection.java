@@ -8,8 +8,10 @@ package com.metho.bpmndesigner.model;
  --------------------------------------------------------------------------------*/
 
 /**
- * interface for all fill styles
+ * this is the direction for <code>TextDecoration</code>
  */
-public interface IStyle {
-	EStyleType getStyleType();
+public enum ETextDirection {
+	LTR,
+	RTL,
+	INHERIT
 }

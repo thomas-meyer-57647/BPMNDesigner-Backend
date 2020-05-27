@@ -13,14 +13,14 @@ import javax.validation.constraints.NotNull;
 /**
  * this is the gradient for a fill style
  */
-public class GradientFillStyle extends Gradient implements IFillStyle {
+public class GradientStyle extends Gradient implements IStyle {
 	
-	private EFillStyleType type = EFillStyleType.GRADIENT;
+	private EStyleType type = EStyleType.GRADIENT;
 	
 	/**
 	 * default constructor
 	 */
-	public GradientFillStyle() {
+	public GradientStyle() {
 		super();
 	}
 	
@@ -38,7 +38,7 @@ public class GradientFillStyle extends Gradient implements IFillStyle {
 	 * @param r2
 	 * @param colorstops
 	 */
-	public GradientFillStyle(EGradientType type, String name, String idname, int x1, int y1, int r1, int x2, int y2,
+	public GradientStyle(EGradientType type, String name, String idname, int x1, int y1, int r1, int x2, int y2,
 			int r2, @NotNull List<ColorStop> colorstops) {
 		super(type, name, idname, x1, y1, r1, x2, y2, r2, colorstops);
 	}
@@ -47,7 +47,7 @@ public class GradientFillStyle extends Gradient implements IFillStyle {
 	 * get the type of fill style
 	 */
 	@Override
-	public EFillStyleType getFillStyleType() {
+	public EStyleType getStyleType() {
 		return type;
 	}
 

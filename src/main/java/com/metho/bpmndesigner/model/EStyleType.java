@@ -7,8 +7,8 @@ package com.metho.bpmndesigner.model;
  * @version		0.1.2
  --------------------------------------------------------------------------------*/
 
-public enum EFillStyleType {
+public enum EStyleType {
 	GRADIENT,
 	COLOR,
-	LINEDASH
+	PATTERN
 }

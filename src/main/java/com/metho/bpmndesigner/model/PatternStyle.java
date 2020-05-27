@@ -7,9 +7,13 @@ package com.metho.bpmndesigner.model;
  * @version		0.1.2
  --------------------------------------------------------------------------------*/
 
-/**
- * interface for all fill styles
- */
-public interface IStyle {
-	EStyleType getStyleType();
+public class PatternStyle extends Pattern implements IStyle {
+	
+	private EStyleType type = EStyleType.PATTERN;
+
+	@Override
+	public EStyleType getStyleType() {
+		return this.type;
+	}
+	
 }

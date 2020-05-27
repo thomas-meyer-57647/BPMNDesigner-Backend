@@ -9,22 +9,20 @@ package com.metho.bpmndesigner.model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * test function for the GradientFillStyle class
+ * test function for <code>PatternFillStyle</code>
  */
-@SpringBootTest
-class GradientStyleTest {
+class PatternStyleTest {
 
 	/**
-	 * get getFillStyleType()
+	 * test getStyleType
 	 */
 	@Test
-	void testGetFillStyleType() {
-		GradientStyle gradientFillStyle = new GradientStyle();
+	void testGetStyleType() {
+		PatternStyle pattern = new PatternStyle();
 		
-		assertEquals(EStyleType.GRADIENT, gradientFillStyle.getStyleType());
+		assertEquals(EStyleType.PATTERN, pattern.getStyleType());
 	}
 
 }

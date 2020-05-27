@@ -13,9 +13,9 @@ import javax.validation.constraints.Min;
 /**
  * this is a color for the fill style
  */
-public class ColorFillStyle extends Color implements IFillStyle {
+public class ColorStyle extends Color implements IStyle {
 
-	private EFillStyleType type = EFillStyleType.COLOR;
+	private EStyleType type = EStyleType.COLOR;
 
 	/**
 	 * initialize constructor
@@ -24,7 +24,7 @@ public class ColorFillStyle extends Color implements IFillStyle {
 	 * @param transparency
 	 * @param name
 	 */
-	public ColorFillStyle(@Min(0) int colorvalue, @Min(0) @Max(1) Float transparency, String name) {
+	public ColorStyle(@Min(0) int colorvalue, @Min(0) @Max(1) Float transparency, String name) {
 		super(colorvalue, transparency, name);
 	}
 
@@ -34,7 +34,7 @@ public class ColorFillStyle extends Color implements IFillStyle {
 	 * @param colorvalue
 	 * @param transparency
 	 */
-	public ColorFillStyle(@Min(0) int colorvalue, @Min(0) @Max(1) Float transparency) {
+	public ColorStyle(@Min(0) int colorvalue, @Min(0) @Max(1) Float transparency) {
 		super(colorvalue, transparency);
 	}
 	
@@ -43,13 +43,13 @@ public class ColorFillStyle extends Color implements IFillStyle {
 	 * 
 	 * @param colorvalue
 	 */
-	public ColorFillStyle(@Min(0) int colorvalue) {
+	public ColorStyle(@Min(0) int colorvalue) {
 		super(colorvalue);
 	}
 
 	// Getter
 	@Override
-	public EFillStyleType getFillStyleType() {
+	public EStyleType getStyleType() {
 		return type;
 	}
 

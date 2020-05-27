@@ -8,8 +8,12 @@ package com.metho.bpmndesigner.model;
  --------------------------------------------------------------------------------*/
 
 /**
- * interface for all fill styles
+ * the enumation of align for a <code>TextDecoration</code>
  */
-public interface IStyle {
-	EStyleType getStyleType();
+public enum ETextAlign {
+	START,
+	END,
+	LEFT,
+	RIGHT,
+	CENTER
 }
