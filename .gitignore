@@ -4,6 +4,13 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+#### only for Test ###
+TODO.txt
+
+#### only for Test ###
+/src/main/java/com/metho/bpmndesigner/controller/HalloWorldController.java
+/src/main/java/com/metho/bpmndesigner/controller/service
+
 ### STS ###
 .apt_generated
 .classpath
