@@ -16,7 +16,7 @@ import org.springframework.data.util.Pair;
 /**
  * a draw object
  */
-public class DrawObject {
+public class DrawObject extends AbstractDrawObject {
 	private String name;												 // the name of the draw object
 	private List<Point> porints = new ArrayList<Point>();				 // the points of the vector it must be minimal 2 points 
 	private IStyle fillStyle = null; 							     	 // will be only used for closed objects
