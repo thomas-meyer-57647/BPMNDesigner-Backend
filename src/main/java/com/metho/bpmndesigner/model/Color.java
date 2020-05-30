@@ -11,26 +11,21 @@ import javax.validation.constraints.Min;
 
 /**
  * this is a color
+ * 
+ * int colorvalue;										the value of the color
+ * Float transparency;									the transparency of the color
+ * String name;								    		the name of the color
  */
 public class Color {
 
-	/**
-	 * the value of the color
-	 */
 	@Min(0)
-	private int colorvalue;
+	private int colorvalue;									// the value of the color
 	
-	/**
-	 * the transparency of the color
-	 */
 	@Min(0)
 	@Max(1)
-	private Float transparency;
+	private Float transparency;								// the transparency of the color
 	
-	/**
-	 * the name of the color
-	 */
-	private String name;
+	private String name;								    // the name of the color
 	
 	/**
 	 * initialize constructor
@@ -41,6 +36,7 @@ public class Color {
 	 */
 	public Color(@Min(0) int colorvalue, @Min(0) @Max(1) Float transparency, String name) {
 		super();
+		
 		this.colorvalue = colorvalue;
 		this.transparency = transparency;
 		this.name = name;

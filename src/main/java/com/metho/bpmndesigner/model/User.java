@@ -9,76 +9,67 @@ package com.metho.bpmndesigner.model;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * a user 
+ * 
+ * long id										the id of the collection
+ * LocalDateTime created_at						the created date
+ * User created_by								the creator
+ * LocalDateTime updated_at						the last update date
+ * User updated_by								the updater
+ * String firstname								the first name of the person
+ * String lastname								the last name of the person
+ * String email									the email of the person. Indexed
+ * String password								the password of the person
+ * String secret								a secret key for reset the password
  */
 @Document(collection="users")
 public class User implements IStoreable {
-	
-	/**
-	 * the id of the collection
-	 * 
-	 * @var int
-	 */
-	@Id
-	private Integer id;
-	
-	/**
-	 * the created date
-	 * 
-	 * @var DateTime
-	 */
-	private LocalDateTime created_at;
-	
-	/**
-	 * the creater
-	 * 
-	 * @var user id
-	 */
-	@DBRef
-	private User created_by;
-	
-	/**
-	 * the last update date
-	 */
-	private LocalDateTime updated_at;
-	
-	/**
-	 * the updater
-	 */
-	@DBRef
-	private User updated_by;
 
-	/**
-	 * the first name of the person
-	 */
-	private String firstname;
+	@Transient
+    public static final String SEQUENCE_NAME = "user_sequence";
 	
-	/**
-	 * the last name of the person
-	 */
-	private String lastname;
+	@Id
+	private long id;							// the id of the document
+	private LocalDateTime created_at;			// the created date
 	
-	/**
-	 * the email of the person
-	 * the field is indexed
-	 */
-	@Indexed
+	@DBRef
+	private User created_by;					// the creator
+	
+	private LocalDateTime updated_at;			// the last update date
+	
+	@DBRef
+	private User updated_by;					// the updater
+	
+    @Size(max=100)
+	private String firstname;					// the first name of the person
+    
+	@NotBlank
+    @Size(max=100)
+	private String lastname;					// the last name of the person
+
+	@NotBlank
+    @Size(max=100)	
 	@Email
-	private String email;
+	@Indexed									// (unique=true)
+	private String email;						// the email of the person
 	
-	/**
-	 * the password of the person
-	 * the field is indexed
-	 */
-	@Indexed
-	private String password;
+	@NotBlank
+    @Size(max=100)	
+	@Indexed 									
+	private String password;					// the password of the person
+	
+	@Indexed 									
+	private String secret;						// a secret key for reset the password
 	
 	/**
 	 * default constructor 
@@ -91,19 +82,19 @@ public class User implements IStoreable {
 	/**
 	 * get the id of the user
 	 * 
-	 * @return int
+	 * @return long
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
 	/**
 	 * set the id of the user
 	 * 
-	 * @param int
+	 * @param long
 	 * @return void
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -257,7 +248,26 @@ public class User implements IStoreable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	/**
+	 * get a secret key for reset the password
+	 * 
+	 * @return String
+	 */
+	public String getSecret() {
+		return secret;
+	}
 	
+	/**
+	 * set a secret key for reset the password
+	 * 
+	 * @oaram String
+	 * @return void
+	 */
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+
 	/**
 	 * get the user as string
 	 * 
@@ -267,7 +277,6 @@ public class User implements IStoreable {
 	public String toString() {
 		return "User [id=" + id + ", created_at=" + created_at + ", created_by=" + created_by + ", updated_at="
 				+ updated_at + ", updated_by=" + updated_by + ", firstname=" + firstname + ", lastname=" + lastname
-				+ ", email=" + email + ", password=" + password + "]";
+				+ ", email=" + email + ", password=" + password + ", secret=" + secret + "]";
 	}
-	
 }

@@ -1,4 +1,4 @@
-package com.metho.bpmndesigner.repositories;
+package com.metho.bpmndesigner.exception;
 /*-------------------------------------------------------------------------------	
  * BPMN Designer	
  *-------------------------------------------------------------------------------	
@@ -6,15 +6,15 @@ package com.metho.bpmndesigner.repositories;
  * @copyright 	Copyright (C) 2020 Thomas Meyer. License see license.txt
  * @version		0.1.2
  --------------------------------------------------------------------------------*/
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.metho.bpmndesigner.model.Color;
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends Exception{
 
-/**
- * the repository for the color
- */
-@Repository
-public interface ColorRepository extends MongoRepository<Color, String>{
+    private static final long serialVersionUID = 1L;
 
+    public ResourceNotFoundException(String message){
+        super(message);
+    }
 }

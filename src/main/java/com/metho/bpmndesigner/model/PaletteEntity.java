@@ -15,26 +15,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * this is a palette
+ * 
+ * int id;													the id of the collection
+ * String name;												the name of the palette
+ * List<Color> colors;										the colors of the palette
  */
 @Document(collection="palettes")
 public class PaletteEntity {
 	
-	/**
-	 * the id of the collection
-	 */
 	@Id
-	private int id;
+	private int id;													// the id of the collection
 	
-	/**
-	 * the name of the palette
-	 */
-	private String name;
+	private String name;											// the name of the palette
 		
-	/**
-	 * the colors of the palette
-	 */
 	@NotNull
-	private List<Color> colors;
+	private List<Color> colors;										// the colors of the palette
 
 	/**
 	 * initialize constructor

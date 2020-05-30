@@ -22,12 +22,7 @@
     </properties>
 
 	<dependencies>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
+		<!-- DevTools  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -35,6 +30,7 @@
 			<optional>true</optional>
 		</dependency>
 		
+		<!-- JUnit -->		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -47,34 +43,46 @@
 			</exclusions>
 		</dependency>
 		
-		    <!-- ini files read / write -->
-			<dependency>
-			    <groupId>org.ini4j</groupId>
-			    <artifactId>ini4j</artifactId>
-			    <version>${org.ini4j.ini4j.version}</version>
-			</dependency>
+   		<!-- MongoDB -->			
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>
+				spring-boot-starter-data-mongodb
+			</artifactId>
+		</dependency>
+		
+		<!-- Validator -->
+		<dependency>
+   			<groupId>org.hibernate</groupId>
+   			<artifactId>hibernate-validator</artifactId>
+   			<version>${org.hibernate.validtor}</version>
+		</dependency>
+		
+		<!-- Lombok -->		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		
+		<!-- ini files read / write -->
+		<dependency>
+		    <groupId>org.ini4j</groupId>
+		    <artifactId>ini4j</artifactId>
+		    <version>${org.ini4j.ini4j.version}</version>
+		</dependency>
        	
-        	<!-- Commons -->
-			<dependency> <!-- File Utilities -->
-			    <groupId>commons-io</groupId>
-			    <artifactId>commons-io</artifactId>
-			    <version>${apache.commons.io.version}</version>
-			</dependency>
-
-       		<!-- Validator -->
-			<dependency>
-    			<groupId>org.hibernate</groupId>
-    			<artifactId>hibernate-validator</artifactId>
-    			<version>${org.hibernate.validtor}</version>
-			</dependency>
-			
-       		<!-- MongoDB -->			
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>
-					spring-boot-starter-data-mongodb
-				</artifactId>
-			</dependency>
+       	<!-- Commons -->
+		<dependency> <!-- File Utilities -->
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>${apache.commons.io.version}</version>
+		</dependency>
+	
+		<!-- RestFull -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

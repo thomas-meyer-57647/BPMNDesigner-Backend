@@ -1,10 +1,4 @@
 package com.metho.bpmndesigner.model;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.data.util.Pair;
-
 /*-------------------------------------------------------------------------------	
  * BPMN Designer	
  *-------------------------------------------------------------------------------	
@@ -12,6 +6,10 @@ import org.springframework.data.util.Pair;
  * @copyright 	Copyright (C) 2020 Thomas Meyer. License see license.txt
  * @version		0.1.2
  --------------------------------------------------------------------------------*/
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.util.Pair;
 
 /**
  * a draw object

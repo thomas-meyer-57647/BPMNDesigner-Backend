@@ -15,12 +15,12 @@ public interface IStoreable {
 	LocalDateTime getCreatedAt();
 	void setCreatedAt(LocalDateTime created_at);
 
-	User getCreatedBy();
-	void setCreatedBy(User created_by);
+//	User getCreatedBy();
+//	void setCreatedBy(User created_by);
 
 	LocalDateTime getUpdatedAt();
 	void setUpdatedAt(LocalDateTime updated_at);
 
-	User getUpdatedBy();
-	void setUpdatedBy(User updated_by);
+//	User getUpdatedBy();
+//	void setUpdatedBy(User updated_by);
 }
