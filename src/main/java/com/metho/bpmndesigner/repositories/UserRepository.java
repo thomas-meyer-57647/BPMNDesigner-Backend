@@ -8,11 +8,12 @@ package com.metho.bpmndesigner.repositories;
  --------------------------------------------------------------------------------*/
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.metho.bpmndesigner.model.User;
+import com.metho.bpmndesigner.model.UserEntity;
 
 /**
  * the repository for a user
@@ -22,7 +23,7 @@ import com.metho.bpmndesigner.model.User;
  * List<User> findBySecret(String secret)									find a user by his secret key
  */
 @Repository
-public interface UserRepository extends MongoRepository<User, Long> {
+public interface UserRepository extends MongoRepository<UserEntity, Long> {
 
 	/**
 	 * find a user by his email and password
@@ -31,7 +32,7 @@ public interface UserRepository extends MongoRepository<User, Long> {
 	 * @param String passwort
 	 * @return List<User>
 	 */
-	List<User> findByEmailAndPasswort(String email, String password);
+	Optional<UserEntity> findByEmailAndPassword(String email, String password);
 	
 	/** 
 	 * find a user by his password
@@ -39,7 +40,7 @@ public interface UserRepository extends MongoRepository<User, Long> {
 	 * @param String email
 	 * @return List<User>
 	 */
-	List<User> findByEmail(String email);
+	Optional<UserEntity> findByEmail(String email);
 	
 	/** 
 	 * find a user by his secret key
@@ -47,6 +48,6 @@ public interface UserRepository extends MongoRepository<User, Long> {
 	 * @param String secret								the secret key
 	 * @return List<User>
 	 */
-	List<User> findBySecret(String secret);
+	Optional<UserEntity> findBySecret(String secret);
 	
 }

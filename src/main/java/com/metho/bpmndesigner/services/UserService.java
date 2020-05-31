@@ -14,22 +14,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.metho.bpmndesigner.exception.ResourceNotFoundException;
-import com.metho.bpmndesigner.model.User;
+import com.metho.bpmndesigner.model.UserEntity;
 import com.metho.bpmndesigner.repositories.UserRepository;
 
 /**
  * this is the service for a user
  * 
  * User create(User creator, User user) 										create a new user
- * List<User> findByEmailAndPassword(String email, String password) 			find user by email and password
- * List<User> findByEmail(String email)											find a user by Email
+ * Optional<User> findByEmailAndPassword(String email, String password) 		find user by email and password
+ * Optional<User> findByEmail(String email)										find a user by Email
  * List<User> findAll()															get all Users
- * List<User> findBySecret(String secret)										get a <code>User</code> by a secret key
  * Optional<User> findById(long userId)											get a <code>User</code> with the ID <code>id</code>
- * 
- * 
- * aktualisieren eines users
- * löschen eines users
+ * Optional<User> findBySecret(String secret)									get a <code>User</code> by a secret key
+ * final UserEntity updateUser(UserEntity updaterUser, Long userID, UserEntity userDetails)
+ *																				update a user
+ * void deleteUser(long userID)													delete a user
  */
 @Service
 public class UserService {
@@ -37,25 +36,28 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * the sequenceGeneratorService for the auto-increment
+     */
     @Autowired
     SequenceGeneratorService sequenceGeneratorService;
     
     /**
      * create a user
      * 
-     * @param User creator	 						the creator
-     * @param User user								the user to save
+     * @param UserEntity creator	 						the creator
+     * @param UserEntity user								the user to save
      * @return User									the created User
      * @throws ResourceNotFoundException 
      * @throw ResourceNotFoundException				if a user exist with the email address 
      */
-    public User createUser(User creator, User user) throws ResourceNotFoundException {
-    	if ( creator.getId() == 0 ) {
+    public UserEntity createUser(UserEntity creator, UserEntity user) throws ResourceNotFoundException {
+    	if ( creator != null ) {
     		userRepository.findById(creator.getId())
     			.orElseThrow(() -> new ResourceNotFoundException("Creator not found with the id :: " + creator.getId()));
     	}
     	
-    	user.setId(sequenceGeneratorService.generateSequence(User.SEQUENCE_NAME));
+    	user.setId(sequenceGeneratorService.generateSequence(UserEntity.SEQUENCE_NAME));
     	user.setCreatedBy(creator);
     	user.setCreatedAt(LocalDateTime.now());
     	
@@ -69,8 +71,8 @@ public class UserService {
      * @param String password								the password to found
      * @return List<User>									the found users
      */
-    List<User> findByEmailAndPassword(String email, String password) {
-    	return userRepository.findByEmailAndPasswort(email, password);
+    Optional<UserEntity> findByEmailAndPassword(String email, String password) {
+    	return userRepository.findByEmailAndPassword(email, password);
     }
     
     /**
@@ -79,7 +81,7 @@ public class UserService {
      * @param String email									the email to found
      * @return List<User>									the found users
      */
-    List<User> findByEmail(String email) {
+    Optional<UserEntity> findByEmail(String email) {
     	return userRepository.findByEmail(email);
     }
     
@@ -88,7 +90,7 @@ public class UserService {
      * 
      * @return List<User>
      */
-    public List<User> findAll() {
+    public List<UserEntity> findAll() {
         return userRepository.findAll();
     }
     
@@ -98,7 +100,7 @@ public class UserService {
      * @param Long userID
      * @return Optional<User>
      */
-    public Optional<User> findById(long userId) {
+    public Optional<UserEntity> findById(long userId) {
     	return userRepository.findById(userId);
     }
     
@@ -108,7 +110,7 @@ public class UserService {
      * @param String secret
      * @return Optional<User>
      */
-    public List<User> findBySecret(String secret) {
+    public Optional<UserEntity> findBySecret(String secret) {
     	return userRepository.findBySecret(secret);
     }
     
@@ -119,14 +121,14 @@ public class UserService {
      * If a <code>User</code> with the id <code>userID</code> not found this function will be
      * throw a ResourceNotFoundException
      * 
-     * @param User updaterUser						the updated
+     * @param UserEntity updaterUser						the updated
      * @param Long userID							the id of the user
-     * @param User userDetails						the information to update
+     * @param UserEntity userDetails						the information to update
      * @return User									the created User
      * @throws ResourceNotFoundException			if no User found with the <code>userID</code>
      */
-    public final User updateUser(User updaterUser, Long userID, User userDetails) throws ResourceNotFoundException {
-        User user = userRepository.findById(userID)
+    public final UserEntity updateUser(UserEntity updaterUser, Long userID, UserEntity userDetails) throws ResourceNotFoundException {
+        UserEntity user = userRepository.findById(userID)
         		.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userID));
         
         user.setUpdatedBy(updaterUser);
@@ -135,6 +137,7 @@ public class UserService {
         user.setLastname(userDetails.getLastname());
         user.setEmail(userDetails.getEmail());
         user.setPassword(userDetails.getPassword());
+        user.setSecret(userDetails.getSecret());
         
         return userRepository.save(user);
     }
@@ -146,7 +149,7 @@ public class UserService {
      * @throws ResourceNotFoundException
      */
     public void deleteUser(long userID) throws ResourceNotFoundException {
-        User user = userRepository.findById(userID)
+        UserEntity user = userRepository.findById(userID)
         		.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userID));
         
         userRepository.delete(user);

@@ -9,7 +9,7 @@ import java.util.List;
  * @author tomth
  *
  */
-public class Document {
+public class DocumentEntity {
 	String name;										// the name of the dokument
 	String author;										// the author of the dokument
 	String version;										// the version

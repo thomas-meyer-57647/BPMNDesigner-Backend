@@ -33,22 +33,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * String secret								a secret key for reset the password
  */
 @Document(collection="users")
-public class User implements IStoreable {
+public class UserEntity implements IStoreable {
 
 	@Transient
     public static final String SEQUENCE_NAME = "user_sequence";
 	
 	@Id
-	private long id;							// the id of the document
-	private LocalDateTime created_at;			// the created date
+	private long id;								// the id of the document
+	private LocalDateTime created_at;				// the created date
 	
 	@DBRef
-	private User created_by;					// the creator
+	private UserEntity created_by;					// the creator
 	
-	private LocalDateTime updated_at;			// the last update date
+	private LocalDateTime updated_at;				// the last update date
 	
 	@DBRef
-	private User updated_by;					// the updater
+	private UserEntity updated_by;					// the updater
 	
     @Size(max=100)
 	private String firstname;					// the first name of the person
@@ -60,7 +60,7 @@ public class User implements IStoreable {
 	@NotBlank
     @Size(max=100)	
 	@Email
-	@Indexed									// (unique=true)
+	@Indexed(unique = true)						// (unique=true)
 	private String email;						// the email of the person
 	
 	@NotBlank
@@ -68,13 +68,13 @@ public class User implements IStoreable {
 	@Indexed 									
 	private String password;					// the password of the person
 	
-	@Indexed 									
+	@Indexed
 	private String secret;						// a secret key for reset the password
 	
 	/**
 	 * default constructor 
 	 */
-	public User() {
+	public UserEntity() {
 		super();
 	}
 
@@ -122,17 +122,17 @@ public class User implements IStoreable {
 	 * 
 	 * @return User
 	 */
-	public User getCreatedBy() {
+	public UserEntity getCreatedBy() {
 		return created_by;
 	}
 	
 	/**
 	 * set the first creator
 	 * 
-	 * @param User
+	 * @param UserEntity
 	 * @return void
 	 */
-	public void setCreatedBy(User created_by) {
+	public void setCreatedBy(UserEntity created_by) {
 		this.created_by = created_by;
 	}
 	
@@ -160,7 +160,7 @@ public class User implements IStoreable {
 	 * 
 	 * @return LocalDateTime
 	 */
-	public User getUpdatedBy() {
+	public UserEntity getUpdatedBy() {
 		return updated_by;
 	}
 	
@@ -169,7 +169,7 @@ public class User implements IStoreable {
 	 * 
 	 * @return LocalDateTime
 	 */
-	public void setUpdatedBy(User updated_by) {
+	public void setUpdatedBy(UserEntity updated_by) {
 		this.updated_by = updated_by;
 	}
 	

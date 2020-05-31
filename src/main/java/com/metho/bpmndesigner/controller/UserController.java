@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.metho.bpmndesigner.exception.ResourceNotFoundException;
-import com.metho.bpmndesigner.model.User;
+import com.metho.bpmndesigner.model.UserEntity;
 import com.metho.bpmndesigner.services.UserService;
 
 /**
@@ -48,7 +48,7 @@ public class UserController {
      * @return List<User>
      */
     @GetMapping("/users")
-    public List<User> getAllUsers() {
+    public List<UserEntity> getAllUsers() {
     	return userService.findAll();
     }
     
@@ -59,9 +59,9 @@ public class UserController {
      * @throws ResourceNotFoundException
      */
     @GetMapping("/employees/{id}")
-    public ResponseEntity < User > getUserById(@PathVariable(value = "id") Long userID)
+    public ResponseEntity < UserEntity > getUserById(@PathVariable(value = "id") Long userID)
     throws ResourceNotFoundException {
-        User user = userService.findById(userID)
+        UserEntity user = userService.findById(userID)
             .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userID));
         
         return ResponseEntity.ok().body(user);
@@ -74,7 +74,7 @@ public class UserController {
      * @throws ResourceNotFoundException 
      */
     @PostMapping("/user")
-    public User createUser(@Valid @RequestBody User user) throws ResourceNotFoundException {
+    public UserEntity createUser(@Valid @RequestBody UserEntity user) throws ResourceNotFoundException {
         return userService.createUser(null, user);
     }
     
