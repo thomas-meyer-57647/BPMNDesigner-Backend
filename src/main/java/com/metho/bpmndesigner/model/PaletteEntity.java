@@ -1,4 +1,5 @@
 package com.metho.bpmndesigner.model;
+import java.time.LocalDateTime;
 /*-------------------------------------------------------------------------------	
  * BPMN Designer	
  *-------------------------------------------------------------------------------	
@@ -11,7 +12,10 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 /**
  * this is a palette
@@ -21,15 +25,28 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * List<Color> colors;										the colors of the palette
  */
 @Document(collection="palettes")
-public class PaletteEntity {
+public class PaletteEntity implements IStoreable {
+	
+	@Transient
+    public static final String SEQUENCE_NAME = "team_sequence";
 	
 	@Id
-	private int id;													// the id of the collection
+	private int id;										// the id of the collection
+	private LocalDateTime created_at;					// the created date
 	
-	private String name;											// the name of the palette
+	@DBRef
+	private UserEntity created_by;						// the creator
+	
+	private LocalDateTime updated_at;					// the last update date
+	
+	@DBRef
+	private UserEntity updated_by;						// the updater
+	
+	@Indexed
+	private String name;								// the name of the palette
 		
 	@NotNull
-	private List<Color> colors;										// the colors of the palette
+	private List<Color> colors;							// the colors of the palette
 
 	/**
 	 * initialize constructor
@@ -61,6 +78,81 @@ public class PaletteEntity {
 	 */
 	public int getId() {
 		return id;
+	}
+	
+	/**
+	 * get the first creation date
+	 * 
+	 * @return LocalDateTime
+	 */
+	public LocalDateTime getCreatedAt() {
+		return created_at;
+	}
+	
+	/**
+	 * set the first creation date
+	 * 
+	 * @param LocalDateTime
+	 * @return void
+	 */
+	public void setCreatedAt(LocalDateTime created_at) {
+		this.created_at = created_at;
+	}
+	
+	/**
+	 * get the first creator
+	 * 
+	 * @return User
+	 */
+	public UserEntity getCreatedBy() {
+		return created_by;
+	}
+	
+	/**
+	 * set the first creator
+	 * 
+	 * @param UserEntity
+	 * @return void
+	 */
+	public void setCreatedBy(UserEntity created_by) {
+		this.created_by = created_by;
+	}
+	
+	/**
+	 * get the last update
+	 * 
+	 * @return LocalDateTime
+	 */
+	public LocalDateTime getUpdatedAt() {
+		return updated_at;
+	}
+	
+	/**
+	 * set the last update
+	 * 
+	 * @param LocalDateTime
+	 * @return
+	 */
+	public void setUpdatedAt(LocalDateTime updated_at) {
+		this.updated_at = updated_at;
+	}
+	
+	/**
+	 * get the last updater
+	 * 
+	 * @return LocalDateTime
+	 */
+	public UserEntity getUpdatedBy() {
+		return updated_by;
+	}
+	
+	/**
+	 * set the last updater
+	 * 
+	 * @return LocalDateTime
+	 */
+	public void setUpdatedBy(UserEntity updated_by) {
+		this.updated_by = updated_by;
 	}
 	
 	/**
@@ -109,5 +201,5 @@ public class PaletteEntity {
 	@Override
 	public String toString() {
 		return "Palette [id=" + id + ", name=" + name + ", colors=" + colors + "]";
-	}	
+	}		
 }

@@ -19,12 +19,6 @@ import org.springframework.data.annotation.Id;
 public class Gradient {
 	
 	/**
-	 * the id of the collection
-	 */
-	@Id
-	private int id;
-	
-	/**
 	 * the type of the gradient
 	 */
 	private EGradientType gradienttype;
@@ -218,13 +212,9 @@ public class Gradient {
 		this.colorstops = colorstops;
 	}
 
-	public int getId() {
-		return id;
-	}
-
 	@Override
 	public String toString() {
-		return "Gradient [id=" + id + ", type=" + gradienttype + ", name=" + name + ", idname=" + idname + ", x1=" + x1
+		return "Gradient [type=" + gradienttype + ", name=" + name + ", idname=" + idname + ", x1=" + x1
 				+ ", y1=" + y1 + ", r1=" + r1 + ", x2=" + x2 + ", y2=" + y2 + ", r2=" + r2 + ", colorstops="
 				+ colorstops + "]";
 	}
