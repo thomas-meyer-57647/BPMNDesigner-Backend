@@ -257,4 +257,24 @@ class ColorStopTest {
 		assertFalse(violations.isEmpty());
 	}	
 	
+	/**
+	 * test clone
+	 */
+	@Test
+	void testClone() {
+		Color color = new Color(255);
+		double offset = 0.75;
+		
+		ColorStop colorStop = new ColorStop();
+		colorStop.setColor(color);
+		colorStop.setOffset(offset);
+		
+		ColorStop newColorStop = colorStop.clone();
+		
+		assertNotEquals(colorStop, newColorStop);
+		assertNotEquals(colorStop.getColor(), newColorStop.getColor());
+		assertEquals(color.getColorValue(), newColorStop.getColor().getColorValue());
+		assertEquals(offset, newColorStop.getOffset());
+	}
+	
 }

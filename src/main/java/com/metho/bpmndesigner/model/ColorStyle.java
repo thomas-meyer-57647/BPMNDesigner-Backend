@@ -18,6 +18,13 @@ public class ColorStyle extends Color implements IStyle {
 	private EStyleType type = EStyleType.COLOR;
 
 	/**
+	 * default constructor
+	 */
+	public ColorStyle() {
+		super();
+	}
+	
+	/**
 	 * initialize constructor
 	 * 
 	 * @param colorvalue
@@ -27,6 +34,8 @@ public class ColorStyle extends Color implements IStyle {
 	public ColorStyle(@Min(0) int colorvalue, @Min(0) @Max(1) Float transparency, String name) {
 		super(colorvalue, transparency, name);
 	}
+
+
 
 	/**
 	 * initialize constructor
@@ -48,9 +57,55 @@ public class ColorStyle extends Color implements IStyle {
 	}
 
 	// Getter
+	/**
+	 * get the style type
+	 * 
+	 * @return EStyleType
+	 */
 	@Override
 	public EStyleType getStyleType() {
 		return type;
+	}
+	
+	/**
+	 * clone this ColorStyle
+	 */
+	public ColorStyle clone() {
+		ColorStyle newColorStyle = new ColorStyle();
+		
+		newColorStyle.setColorvalue(this.getColorValue());
+		newColorStyle.setTransparency(this.getTransparency());
+		newColorStyle.setName(this.getName());
+		
+		return newColorStyle;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ColorStyle other = (ColorStyle) obj;
+		if (type != other.type)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ColorStyle [type=" + type + ", getColorValue()=" + getColorValue() + ", getTransparency()="
+				+ getTransparency() + ", getName()=" + getName() + "]";
 	}
 
 }

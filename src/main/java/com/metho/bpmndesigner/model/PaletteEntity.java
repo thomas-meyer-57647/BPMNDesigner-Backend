@@ -12,9 +12,13 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 /**
@@ -25,28 +29,43 @@ import org.springframework.data.mongodb.core.index.Indexed;
  * List<Color> colors;										the colors of the palette
  */
 @Document(collection="palettes")
+@CompoundIndexes({
+    @CompoundIndex(name = "user_palette", def = "{'createdBy.id' : 1, 'name': 1}, {unique: true}")
+})
 public class PaletteEntity implements IStoreable {
 	
 	@Transient
-    public static final String SEQUENCE_NAME = "team_sequence";
+    public static final String SEQUENCE_NAME = "palette_sequence";
 	
 	@Id
-	private int id;										// the id of the collection
-	private LocalDateTime created_at;					// the created date
+	private long id;									// the id of the collection
+	@Field("created_at")
+	private LocalDateTime createdAt;					// the created date
 	
 	@DBRef
-	private UserEntity created_by;						// the creator
+	@Field("created_by")
+	private UserEntity createdBy;						// the creator
 	
-	private LocalDateTime updated_at;					// the last update date
+	@Field("updated_at")
+	private LocalDateTime updatedAt;					// the last update date
 	
 	@DBRef
-	private UserEntity updated_by;						// the updater
+	@Field("update_by")
+	private UserEntity updatedBy;						// the updater
 	
 	@Indexed
 	private String name;								// the name of the palette
 		
 	@NotNull
 	private List<Color> colors;							// the colors of the palette
+	
+	/**
+	 * default constructor
+	 */
+	@PersistenceConstructor	
+	public PaletteEntity() {
+		super();
+	}
 
 	/**
 	 * initialize constructor
@@ -60,7 +79,7 @@ public class PaletteEntity implements IStoreable {
 		this.name = name;
 		this.colors = colors;
 	}
-
+	
 	/**
 	 * initialize constructor
 	 * 
@@ -73,20 +92,31 @@ public class PaletteEntity implements IStoreable {
 	/**
 	 * get id of the palette
 	 * 
-	 * @return int
+	 * @return long
 	 * @public
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
+	/**
+	 * set id of the palette
+	 * 
+	 * @param long
+	 * @return void
+	 * @public
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	/**
 	 * get the first creation date
 	 * 
 	 * @return LocalDateTime
 	 */
 	public LocalDateTime getCreatedAt() {
-		return created_at;
+		return createdAt;
 	}
 	
 	/**
@@ -96,7 +126,7 @@ public class PaletteEntity implements IStoreable {
 	 * @return void
 	 */
 	public void setCreatedAt(LocalDateTime created_at) {
-		this.created_at = created_at;
+		this.createdAt = created_at;
 	}
 	
 	/**
@@ -105,7 +135,7 @@ public class PaletteEntity implements IStoreable {
 	 * @return User
 	 */
 	public UserEntity getCreatedBy() {
-		return created_by;
+		return createdBy;
 	}
 	
 	/**
@@ -115,7 +145,7 @@ public class PaletteEntity implements IStoreable {
 	 * @return void
 	 */
 	public void setCreatedBy(UserEntity created_by) {
-		this.created_by = created_by;
+		this.createdBy = created_by;
 	}
 	
 	/**
@@ -124,7 +154,7 @@ public class PaletteEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public LocalDateTime getUpdatedAt() {
-		return updated_at;
+		return updatedAt;
 	}
 	
 	/**
@@ -134,7 +164,7 @@ public class PaletteEntity implements IStoreable {
 	 * @return
 	 */
 	public void setUpdatedAt(LocalDateTime updated_at) {
-		this.updated_at = updated_at;
+		this.updatedAt = updated_at;
 	}
 	
 	/**
@@ -143,7 +173,7 @@ public class PaletteEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public UserEntity getUpdatedBy() {
-		return updated_by;
+		return updatedBy;
 	}
 	
 	/**
@@ -152,7 +182,7 @@ public class PaletteEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public void setUpdatedBy(UserEntity updated_by) {
-		this.updated_by = updated_by;
+		this.updatedBy = updated_by;
 	}
 	
 	/**

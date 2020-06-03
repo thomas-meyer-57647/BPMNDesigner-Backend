@@ -346,4 +346,26 @@ class ColorTest {
 		assertTrue(violations.isEmpty());		
 	}
 
+	/**
+	 * test clone function
+	 */
+	@Test
+	void testClone() {
+		int colorvalue = 255;
+		Float transparency = .25f;
+		String name = "aColor";
+		
+		Color color = new Color();
+		
+		color.setColorvalue(colorvalue);
+		color.setTransparency(transparency);
+		color.setName(name);
+		
+		Color newColor = color.clone();
+		
+		assertNotEquals(color, newColor);
+		assertEquals(colorvalue, newColor.getColorValue());
+		assertEquals(transparency, newColor.getTransparency());
+		assertEquals(name, newColor.getName());
+	}
 }

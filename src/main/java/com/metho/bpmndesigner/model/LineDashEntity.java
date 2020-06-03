@@ -8,6 +8,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 /*-------------------------------------------------------------------------------	
@@ -18,47 +20,85 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
  * @version		0.1.2
  --------------------------------------------------------------------------------*/
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * this is a storable linedash
+ * 
+ * int id										the id of the collection
+ * LocalDateTime createdAt						the created at
+ * UserEntity createdBy							the creator
+ * LocalDateTime updatedAt						the last update date
+ * UserEntity updatedBy							the updater
+ * String name									the name of the linedash (not blank and max 100 chars)
  */
 @Document(collection="linedashes")
+@CompoundIndexes({
+    @CompoundIndex(name = "user_linedashes", def = "{'createdBy.id' : 1, 'name': 1}, {unique: true}")
+})
 public class LineDashEntity extends LineDash implements IStoreable {
 
 	@Transient
     public static final String SEQUENCE_NAME = "linedash_sequence";
 	
 	@Id
-	private int id;										// the id of the collection
-	private LocalDateTime created_at;					// the created date
+	private long id;										// the id of the collection
+	
+	@Field("created_at")
+	private LocalDateTime createdAt;					// the created date
 	
 	@DBRef
-	private UserEntity created_by;						// the creator
+	@Field("created_by")
+	private UserEntity createdBy;						// the creator
 	
-	private LocalDateTime updated_at;					// the last update date
+	@Field("updated_at")	
+	private LocalDateTime updatedAt;					// the last update date
 	
 	@DBRef
-	private UserEntity updated_by;						// the updater
+	@Field("udated_by")	
+	private UserEntity updatedBy;						// the updater
 	
 	@Indexed
 	@NotBlank
     @Size(max=100)	
-	private String name;								// the name of the palette
+	private String name;								// the name of the gradient
+	
 		
 	/**
 	 * the initialize constructor
 	 */
-	public LineDashEntity(@NotNull List<Integer> segments) {
+	public LineDashEntity(String name, @NotNull List<Integer> segments) {
 		super(segments);
+		
+		this.name = name;
 	}
 	
+	/**
+	 * get the id of the linedash
+	 * 
+	 * @return long
+	 */
+	public long getId() {
+		return id;
+	}
+	
+	/**
+	 * set the id of the linedash
+	 * 
+	 * @param long
+	 * @return void
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	/**
 	 * get the first creation date
 	 * 
 	 * @return LocalDateTime
 	 */
 	public LocalDateTime getCreatedAt() {
-		return created_at;
+		return createdAt;
 	}
 	
 	/**
@@ -68,7 +108,7 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	 * @return void
 	 */
 	public void setCreatedAt(LocalDateTime created_at) {
-		this.created_at = created_at;
+		this.createdAt = created_at;
 	}
 	
 	/**
@@ -77,7 +117,7 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	 * @return User
 	 */
 	public UserEntity getCreatedBy() {
-		return created_by;
+		return createdBy;
 	}
 	
 	/**
@@ -87,7 +127,7 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	 * @return void
 	 */
 	public void setCreatedBy(UserEntity created_by) {
-		this.created_by = created_by;
+		this.createdBy = created_by;
 	}
 	
 	/**
@@ -96,7 +136,7 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public LocalDateTime getUpdatedAt() {
-		return updated_at;
+		return updatedAt;
 	}
 	
 	/**
@@ -106,7 +146,7 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	 * @return
 	 */
 	public void setUpdatedAt(LocalDateTime updated_at) {
-		this.updated_at = updated_at;
+		this.updatedAt = updated_at;
 	}
 	
 	/**
@@ -115,7 +155,7 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public UserEntity getUpdatedBy() {
-		return updated_by;
+		return updatedBy;
 	}
 	
 	/**
@@ -124,7 +164,7 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public void setUpdatedBy(UserEntity updated_by) {
-		this.updated_by = updated_by;
+		this.updatedBy = updated_by;
 	}
 
 	/**
@@ -144,6 +184,12 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "LineDashEntity [id=" + id + ", createdAt=" + createdAt + ", createdBy=" + createdBy + ", updatedAt="
+				+ updatedAt + ", updatedBy=" + updatedBy + ", name=" + name + ", getSegments()=" + getSegments() + "]";
 	}
 
 }

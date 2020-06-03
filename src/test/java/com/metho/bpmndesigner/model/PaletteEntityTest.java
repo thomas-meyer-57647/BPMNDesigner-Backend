@@ -66,7 +66,9 @@ class PaletteEntityTest {
 		String name = "palette";
 		List<Color> colors = new ArrayList<Color>();
 		
-		PaletteEntity palette = new PaletteEntity(name, colors);
+		PaletteEntity palette = new PaletteEntity();
+		palette.setName(name);
+		palette.setColors(colors);
 		
 		assertEquals(name, palette.getName());
 	}
@@ -79,7 +81,9 @@ class PaletteEntityTest {
 		String name = "palette";
 		List<Color> colors = new ArrayList<Color>();
 		
-		PaletteEntity palette = new PaletteEntity("", colors);
+		PaletteEntity palette = new PaletteEntity();
+		palette.setName(name);
+		palette.setColors(colors);
 		
 		assertEquals(name, palette.getName());
 		
@@ -95,7 +99,9 @@ class PaletteEntityTest {
 		String name = "palette";
 		List<Color> colors = new ArrayList<Color>();
 		
-		PaletteEntity palette = new PaletteEntity(name, colors);
+		PaletteEntity palette = new PaletteEntity();
+		palette.setName(name);
+		palette.setColors(colors);
 		
 		assertEquals(colors, palette.getColors());
 	}
@@ -108,8 +114,9 @@ class PaletteEntityTest {
 		String name = "palette";
 		List<Color> colors = new ArrayList<Color>();
 		
-		PaletteEntity palette = new PaletteEntity(name, new ArrayList<Color>());
-		palette.setColors(colors);
+		PaletteEntity palette = new PaletteEntity();
+		palette.setName(name);
+		palette.setColors(new ArrayList<Color>());
 		
 		assertEquals(colors, palette.getColors());
 		
@@ -125,7 +132,8 @@ class PaletteEntityTest {
 		String name = "palette";
 		List<Color> colors = null;
 		
-		PaletteEntity palette = new PaletteEntity(name, new ArrayList<Color>());
+		PaletteEntity palette = new PaletteEntity();
+		palette.setName(name);
 		palette.setColors(colors);
 		
 		assertEquals(colors, palette.getColors());

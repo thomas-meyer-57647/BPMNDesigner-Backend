@@ -17,6 +17,15 @@ public class Group {
 	private List<AbstractDrawObject> drawobjects = new ArrayList<AbstractDrawObject>();
 	
 	/**
+	 * default constructor
+	 * 
+	 * @return void
+	 */
+	public Group() {
+		super();
+	}
+	
+	/**
 	 * initialize constructor
 	 * 
 	 * if <code>drawobjects</code> is null or size 0 the function will be thrown a
@@ -77,6 +86,37 @@ public class Group {
 		}
 		
 		this.drawobjects = drawobjects;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((drawobjects == null) ? 0 : drawobjects.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Group other = (Group) obj;
+		if (drawobjects == null) {
+			if (other.drawobjects != null)
+				return false;
+		} else if (!drawobjects.equals(other.drawobjects))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 	@Override

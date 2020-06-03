@@ -12,22 +12,26 @@ import javax.validation.constraints.NotNull;
 
 /**
  * this is a colorstep for a gradient
+ * 
+ * double offset		the offset of the colorstop. It must be between 0 and 1
+ * Color color			the color. It could not be null
  */
 public class ColorStop {
 	
-	/**
-	 * the offset of the colorstop
-	 */
 	@Min(0)
 	@Max(1)
-	private double offset;
+	private double offset;					// the offset of the colorstop
+	
+	@NotNull								
+	private Color color;					// the color
 	
 	/**
-	 * the color
+	 * default constructor
 	 */
-	@NotNull
-	private Color color;
-
+	public ColorStop() {
+		super();
+	}
+	
 	/**
 	 * initialize constructor
 	 * 
@@ -82,6 +86,51 @@ public class ColorStop {
 	 */
 	public void setColor( @NotNull Color color) {
 		this.color = color;
+	}
+	
+	/**
+	 * clone this colorstop
+	 * 
+	 * @return ColorStop
+	 * @public
+	 */
+	public ColorStop clone() {
+		ColorStop newColorStop = new ColorStop();
+		
+		newColorStop.color = this.color.clone();
+		newColorStop.offset = this.offset;
+		
+		return newColorStop;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(offset);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ColorStop other = (ColorStop) obj;
+		if (color == null) {
+			if (other.color != null)
+				return false;
+		} else if (!color.equals(other.color))
+			return false;
+		if (Double.doubleToLongBits(offset) != Double.doubleToLongBits(other.offset))
+			return false;
+		return true;
 	}
 
 	@Override

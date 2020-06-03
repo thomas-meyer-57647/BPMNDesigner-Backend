@@ -13,6 +13,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 /**
@@ -35,15 +36,20 @@ public class TeamEntity implements IStoreable {
 	
 	@Id
 	private long id;									// the id of the team collection
-	private LocalDateTime created_at;					// the created date
+	
+	@Field("created_at")	
+	private LocalDateTime createdAt;					// the created date
 	
 	@DBRef
-	private UserEntity created_by;						// the creator
+	@Field("created_by")
+	private UserEntity createdBy;						// the creator
 	
-	private LocalDateTime updated_at;					// the last update date
+	@Field("updated_at")
+	private LocalDateTime updatedAt;					// the last update date
 	
 	@DBRef
-	private UserEntity updated_by;						// the updater
+	@Field("updated_by")	
+	private UserEntity updatedBy;						// the updater
 	
 	@Indexed
 	private String name;								// name of the team
@@ -56,6 +62,13 @@ public class TeamEntity implements IStoreable {
 
 	/**
 	 * default constructor
+	 */
+	public TeamEntity() {
+		super();
+	}
+	
+	/**
+	 * intialize constructor
 	 * 
 	 * if <code>users</code> or <code>documents</code> null or empty list this function
 	 * throw a IllegalArgumentException
@@ -88,6 +101,8 @@ public class TeamEntity implements IStoreable {
 		this.documents = documents;
 	}
 
+
+
 	// GETTER / SETTER
 	/**
 	 * get the id of the team
@@ -114,7 +129,7 @@ public class TeamEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public LocalDateTime getCreatedAt() {
-		return created_at;
+		return createdAt;
 	}
 	
 	/**
@@ -124,7 +139,7 @@ public class TeamEntity implements IStoreable {
 	 * @return void
 	 */
 	public void setCreatedAt(LocalDateTime created_at) {
-		this.created_at = created_at;
+		this.createdAt = created_at;
 	}
 	
 	/**
@@ -133,7 +148,7 @@ public class TeamEntity implements IStoreable {
 	 * @return User
 	 */
 	public UserEntity getCreatedBy() {
-		return created_by;
+		return createdBy;
 	}
 	
 	/**
@@ -143,7 +158,7 @@ public class TeamEntity implements IStoreable {
 	 * @return void
 	 */
 	public void setCreatedBy(UserEntity created_by) {
-		this.created_by = created_by;
+		this.createdBy = created_by;
 	}
 	
 	/**
@@ -152,7 +167,7 @@ public class TeamEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public LocalDateTime getUpdatedAt() {
-		return updated_at;
+		return updatedAt;
 	}
 	
 	/**
@@ -162,7 +177,7 @@ public class TeamEntity implements IStoreable {
 	 * @return
 	 */
 	public void setUpdatedAt(LocalDateTime updated_at) {
-		this.updated_at = updated_at;
+		this.updatedAt = updated_at;
 	}
 	
 	/**
@@ -171,7 +186,7 @@ public class TeamEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public UserEntity getUpdatedBy() {
-		return updated_by;
+		return updatedBy;
 	}
 	
 	/**
@@ -180,7 +195,7 @@ public class TeamEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public void setUpdatedBy(UserEntity updated_by) {
-		this.updated_by = updated_by;
+		this.updatedBy = updated_by;
 	}
 	
 	/**
@@ -260,8 +275,8 @@ public class TeamEntity implements IStoreable {
 
 	@Override
 	public String toString() {
-		return "TeamEntity [id=" + id + ", created_at=" + created_at + ", created_by=" + created_by + ", updated_at="
-				+ updated_at + ", updated_by=" + updated_by + ", name=" + name + ", users=" + users + ", documents="
+		return "TeamEntity [id=" + id + ", created_at=" + createdAt + ", created_by=" + createdBy + ", updated_at="
+				+ updatedAt + ", updated_by=" + updatedBy + ", name=" + name + ", users=" + users + ", documents="
 				+ documents + ", getId()=" + getId() + ", getCreatedAt()=" + getCreatedAt() + ", getCreatedBy()="
 				+ getCreatedBy() + ", getUpdatedAt()=" + getUpdatedAt() + ", getUpdatedBy()=" + getUpdatedBy()
 				+ ", getName()=" + getName() + ", getUsers()=" + getUsers() + ", getDocuments()=" + getDocuments()

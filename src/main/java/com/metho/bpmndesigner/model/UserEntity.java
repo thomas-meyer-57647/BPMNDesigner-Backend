@@ -17,6 +17,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * a user 
@@ -40,15 +41,20 @@ public class UserEntity implements IStoreable {
 	
 	@Id
 	private long id;								// the id of the document
-	private LocalDateTime created_at;				// the created date
+	
+	@Field("created_at")	
+	private LocalDateTime createdAt;				// the created date
 	
 	@DBRef
-	private UserEntity created_by;					// the creator
+	@Field("created_by")
+	private UserEntity createdBy;					// the creator
 	
-	private LocalDateTime updated_at;				// the last update date
+	@Field("updated_at")
+	private LocalDateTime updatedAt;				// the last update date
 	
 	@DBRef
-	private UserEntity updated_by;					// the updater
+	@Field("updated_by")	
+	private UserEntity updatedBy;					// the updater
 	
     @Size(max=100)
 	private String firstname;					// the first name of the person
@@ -104,7 +110,7 @@ public class UserEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public LocalDateTime getCreatedAt() {
-		return created_at;
+		return createdAt;
 	}
 	
 	/**
@@ -114,7 +120,7 @@ public class UserEntity implements IStoreable {
 	 * @return void
 	 */
 	public void setCreatedAt(LocalDateTime created_at) {
-		this.created_at = created_at;
+		this.createdAt = created_at;
 	}
 	
 	/**
@@ -123,7 +129,7 @@ public class UserEntity implements IStoreable {
 	 * @return User
 	 */
 	public UserEntity getCreatedBy() {
-		return created_by;
+		return createdBy;
 	}
 	
 	/**
@@ -133,7 +139,7 @@ public class UserEntity implements IStoreable {
 	 * @return void
 	 */
 	public void setCreatedBy(UserEntity created_by) {
-		this.created_by = created_by;
+		this.createdBy = created_by;
 	}
 	
 	/**
@@ -142,7 +148,7 @@ public class UserEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public LocalDateTime getUpdatedAt() {
-		return updated_at;
+		return updatedAt;
 	}
 	
 	/**
@@ -152,7 +158,7 @@ public class UserEntity implements IStoreable {
 	 * @return
 	 */
 	public void setUpdatedAt(LocalDateTime updated_at) {
-		this.updated_at = updated_at;
+		this.updatedAt = updated_at;
 	}
 	
 	/**
@@ -161,7 +167,7 @@ public class UserEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public UserEntity getUpdatedBy() {
-		return updated_by;
+		return updatedBy;
 	}
 	
 	/**
@@ -170,7 +176,7 @@ public class UserEntity implements IStoreable {
 	 * @return LocalDateTime
 	 */
 	public void setUpdatedBy(UserEntity updated_by) {
-		this.updated_by = updated_by;
+		this.updatedBy = updated_by;
 	}
 	
 	/**
@@ -275,8 +281,8 @@ public class UserEntity implements IStoreable {
 	 */
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", created_at=" + created_at + ", created_by=" + created_by + ", updated_at="
-				+ updated_at + ", updated_by=" + updated_by + ", firstname=" + firstname + ", lastname=" + lastname
+		return "User [id=" + id + ", created_at=" + createdAt + ", created_by=" + createdBy + ", updated_at="
+				+ updatedAt + ", updated_by=" + updatedBy + ", firstname=" + firstname + ", lastname=" + lastname
 				+ ", email=" + email + ", password=" + password + ", secret=" + secret + "]";
 	}
 }

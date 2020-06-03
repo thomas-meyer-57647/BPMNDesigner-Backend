@@ -10,22 +10,23 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-import com.metho.bpmndesigner.model.PaletteEntity;
+import com.metho.bpmndesigner.model.LineDashEntity;
 import com.metho.bpmndesigner.model.UserEntity;
 
 /**
- * the repository for a palette
+ * this is the repository for the line dash
  */
 @Repository
-public interface PaletteRepository extends MongoRepository<PaletteEntity, Long> {
+public interface LineDashRepository extends MongoRepository<LineDashEntity, Long> {
 	
 	/**
-	 * find a Palette by his name. The index is unique
+	 * find a linedash by his name. The index is unique
 	 * 
 	 * @param UserEntity creator				the person who create this entity
-	 * @param String name						the name of the palette
-	 * @return List<PaletteEntity>				the found names
+	 * @param String name						the name of the linedash
+	 * @return Optional<LineDashEntity>			the found named linedash
 	 */
-	Optional<PaletteEntity> findByCreatedByAndName(UserEntity creator, String name);
+	Optional<LineDashEntity> findByCreatedByAndName(UserEntity creator, String name);
 }

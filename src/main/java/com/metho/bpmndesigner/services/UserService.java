@@ -45,8 +45,8 @@ public class UserService {
     /**
      * create a user
      * 
-     * @param UserEntity creator	 						the creator
-     * @param UserEntity user								the user to save
+     * @param UserEntity creator	 				the creator
+     * @param UserEntity user						the user to save
      * @return User									the created User
      * @throws ResourceNotFoundException 
      * @throw ResourceNotFoundException				if a user exist with the email address 
@@ -121,9 +121,9 @@ public class UserService {
      * If a <code>User</code> with the id <code>userID</code> not found this function will be
      * throw a ResourceNotFoundException
      * 
-     * @param UserEntity updaterUser						the updated
+     * @param UserEntity updaterUser				the updated
      * @param Long userID							the id of the user
-     * @param UserEntity userDetails						the information to update
+     * @param UserEntity userDetails				the information to update
      * @return User									the created User
      * @throws ResourceNotFoundException			if no User found with the <code>userID</code>
      */

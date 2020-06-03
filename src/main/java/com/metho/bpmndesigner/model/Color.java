@@ -28,6 +28,13 @@ public class Color {
 	private String name;								    // the name of the color
 	
 	/**
+	 * default constructor
+	 */
+	public Color() {
+		super();
+	}
+	
+	/**
 	 * initialize constructor
 	 * 
 	 * @param colorvalue				0 or greater
@@ -122,6 +129,55 @@ public class Color {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * clone this color
+	 * 
+	 * @return new <code>Color</code>
+	 */
+	public Color clone() {
+		Color newColor = new Color();
+		
+		newColor.colorvalue = this.colorvalue;
+		newColor.transparency = this.transparency;
+		newColor.name = this.name;
+		
+		return newColor;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + colorvalue;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((transparency == null) ? 0 : transparency.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Color other = (Color) obj;
+		if (colorvalue != other.colorvalue)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (transparency == null) {
+			if (other.transparency != null)
+				return false;
+		} else if (!transparency.equals(other.transparency))
+			return false;
+		return true;
 	}
 
 	@Override

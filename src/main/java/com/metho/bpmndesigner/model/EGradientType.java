@@ -7,7 +7,13 @@ package com.metho.bpmndesigner.model;
  * @version		0.1.2
  --------------------------------------------------------------------------------*/
 
+/**
+ * the type of the gradient
+ * 
+ * 		LINEARGRADIENT				linear gradient
+ *	    RADIALGRADIENT				radial gradient
+ */
 public enum EGradientType {
-	LINEARGRADIENT,
-	RADIALGRADIENT
+	LINEARGRADIENT,					
+	RADIALGRADIENT					
 }

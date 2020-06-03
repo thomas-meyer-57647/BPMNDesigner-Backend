@@ -12,14 +12,23 @@ import javax.validation.constraints.NotNull;
 
 /**
  * a line dash
+ * 
+ * List<Integer> segments;			definition of the line dash
  */
 public class LineDash {
-	/**
-	 * definition of the line dash
-	 */
+	
 	@NotNull
-	private List<Integer> segments;
+	private List<Integer> segments;			// definition of the line dash
 
+	/**
+	 * default constructor
+	 * 
+	 * @return void
+	 */
+	public LineDash() {
+		super();
+	}
+	
 	/**
 	 * initialize constructor
 	 * 
@@ -36,14 +45,28 @@ public class LineDash {
 		this.segments = segments;
 	}
 
+
 	// Getter / Setter
+	
+	/**
+	 * get the segments of the line dash
+	 * 
+	 * @return List<Integer>
+	 */
 	public List<Integer> getSegments() {
 		return segments;
 	}
 
+	/**
+	 * set the segments of the line dash
+	 * 
+	 * @param List<Integer> segments
+	 * @return null
+	 * @throws IllegalArgumentException 		- if the list ist null or empty
+	 */
 	public void setSegments(@NotNull List<Integer> segments) {
 		
-		if ( segments == null ) {
+		if ( segments == null || segments.size() == 0) {
 			throw new IllegalArgumentException("LineDash::setLineDash(" 
 					+ segments + "): Param could not be null or empty");
 		}		
