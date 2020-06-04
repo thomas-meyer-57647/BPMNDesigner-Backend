@@ -18,7 +18,6 @@ import com.metho.bpmndesigner.model.GradientEntity;
 import com.metho.bpmndesigner.model.PaletteEntity;
 import com.metho.bpmndesigner.model.UserEntity;
 import com.metho.bpmndesigner.repositories.GradientRepository;
-import com.metho.bpmndesigner.repositories.PaletteRepository;
 import com.metho.bpmndesigner.repositories.UserRepository;
 
 /**
@@ -27,6 +26,7 @@ import com.metho.bpmndesigner.repositories.UserRepository;
  * GradientEntity createGradient(UserEntity creator, GradientEntity gradient)	create a <code>GradientEntity</code> in the database
  * Optional<GradientEntity> findById(long gradientID)							get a <code>GradientEntity</code> with the ID <code>id</code>
  * Optional<GradientEntity> findByName(UserEntity creator, String name) 		get a <code>GradientEntity</code> by his name <code>name</code>
+ * List<GradientEntity> findAll(UserEntity creator)								get all gradients from the user <code>creator</code>
  * final GradientEntity updateGradient(UserEntity updaterUser, Long gradientID, GradientEntity gradientDetails)
  * 																				update a <code>GradientEntity</code> with the id <code>gradientID</code> from the User
  * void deleteGradient(long gradientID) throws ResourceNotFoundException 		delete a <code>GradientEntity</code> uwith the ID <code>id</code>
@@ -90,12 +90,12 @@ public class GradientService {
     }
     
     /**
-     * get all gradients
+     * get all gradients from the user <code>creator</code>
      * 
      * @return List<User>
      */
-    public List<GradientEntity> findAll() {
-        return gradientRepository.findAll();
+    public List<GradientEntity> findAll(UserEntity creator) {
+        return gradientRepository.findByCreatedBy(creator);
     }
     
     /**

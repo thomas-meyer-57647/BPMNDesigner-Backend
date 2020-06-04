@@ -20,11 +20,12 @@ import com.metho.bpmndesigner.repositories.PaletteRepository;
 import com.metho.bpmndesigner.repositories.UserRepository;
 
 /**
- * this is the service for a user
+ * this is the service for a palette
  * 
  * PaletteEntity createPalette(UserEntity creator, PaletteEntity palette)       reate a palette
  * Optional<PaletteEntity> findById(long paletteID)								get a <code>PaletteEntity</code> with the ID <code>id</code>
  * Optional<PaletteEntity> findByName(UserEntity creator, String name) 			get a <code>PaletteEntity</code> by his name <code>name</code>
+ * List<PaletteEntity> findAll(UserEntity creator)								get all <code>PaletteEntity</code> from the user user <code>creator</code>
  * final PaletteEntity updatePalette(UserEntity updaterUser, Long paletteID, PaletteEntity paletteDetails)
  * 																				update a <code>Palette</code> with the id <code>paletteID</code> from the User
  * void deletePalette(long paletteID) throws ResourceNotFoundException 			delete a <code>PaletteEntity</code> uwith the ID <code>id</code>
@@ -88,12 +89,12 @@ public class PaletteService {
     }
     
     /**
-     * get all Palettes
+     * get all Palettes from the user <code>creator</code>
      * 
      * @return List<User>
      */
-    public List<PaletteEntity> findAll() {
-        return paletteRepository.findAll();
+    public List<PaletteEntity> findAll(UserEntity creator) {
+        return paletteRepository.findByCreatedBy(creator);
     }
     
     /**

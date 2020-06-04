@@ -11,6 +11,17 @@ import java.util.List;
 
 /**
  * The layer can be owned by any number of AbstractDrawObjects 
+ * 
+ * String name									the name of layer
+ * List<AbstractDrawObject> drawobjects			the objects on the layer
+ * Color color									the color for <code>color_used</code>
+ * boolean visible = true						visible of the drawobjects on this layer
+ * boolean active = true						drawobjects can be selected
+ * boolean locked = false						prevent or allow changes to the DrawObjects
+ * boolean glue = false							ensures that connectors remain attached to DrawObjects
+ * boolean printable = true						the layer is printable
+ * boolean color_used = false					applies the assigned color to all DrawObjects on a layer
+ * boolean align = true							align with the grid 
  */
 public class Layer {
 	private String name;									// the name of layer
@@ -75,10 +86,17 @@ public class Layer {
 	/**
 	 * set the draw objects or group of this layer
 	 * 
+	 * If <code>drawobjects</code> is null this function will be throw
+	 * an IllegalArgumentException
+	 * 
 	 * @param List<AbstractDrawObject>
 	 * @return void
 	 */
 	public void setDrawobjects(List<AbstractDrawObject> drawobjects) {
+		if ( drawobjects == null ) {
+			throw new IllegalArgumentException("Layer::setDrawObjects(" + drawobjects + ": can not be null");
+		}
+		
 		this.drawobjects = drawobjects;
 	}
 	
@@ -231,6 +249,89 @@ public class Layer {
 	 */
 	public void setAlign(boolean align) {
 		this.align = align;
+	}
+
+	/**
+	 * clone this layer
+	 * 
+	 * @return Layer
+	 */
+	public Layer clone() {
+		Layer newLayer = new Layer();
+		
+		newLayer.name = this.name;
+		newLayer.color = ( this.color == null) ? null : this.color.clone();
+		newLayer.visible = this.visible;
+		newLayer.active = this.active;
+		newLayer.locked = this.locked;
+		newLayer.glue = this.glue;
+		newLayer.printable = this.printable;
+		newLayer.color_used = this.color_used;
+		newLayer.align = this.align;
+
+		for( int index=0; index<this.drawobjects.size(); index++) {
+			newLayer.drawobjects.add( this.drawobjects.get(index).clone() );
+		}
+		
+		return newLayer; 
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (active ? 1231 : 1237);
+		result = prime * result + (align ? 1231 : 1237);
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + (color_used ? 1231 : 1237);
+		result = prime * result + ((drawobjects == null) ? 0 : drawobjects.hashCode());
+		result = prime * result + (glue ? 1231 : 1237);
+		result = prime * result + (locked ? 1231 : 1237);
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + (printable ? 1231 : 1237);
+		result = prime * result + (visible ? 1231 : 1237);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Layer other = (Layer) obj;
+		if (active != other.active)
+			return false;
+		if (align != other.align)
+			return false;
+		if (color == null) {
+			if (other.color != null)
+				return false;
+		} else if (!color.equals(other.color))
+			return false;
+		if (color_used != other.color_used)
+			return false;
+		if (drawobjects == null) {
+			if (other.drawobjects != null)
+				return false;
+		} else if (!drawobjects.equals(other.drawobjects))
+			return false;
+		if (glue != other.glue)
+			return false;
+		if (locked != other.locked)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (printable != other.printable)
+			return false;
+		if (visible != other.visible)
+			return false;
+		return true;
 	}
 
 	@Override

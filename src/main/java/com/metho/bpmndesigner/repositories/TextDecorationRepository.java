@@ -11,37 +11,34 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-import com.metho.bpmndesigner.model.LineDashEntity;
 import com.metho.bpmndesigner.model.TextDecorationEntity;
 import com.metho.bpmndesigner.model.UserEntity;
 
 /**
- * this is the repository for the line dash
+ * the repository for a text deocration
  * 
- * Optional<LineDashEntity> findByCreatedByAndName(UserEntity creator, String name)
- * 																	find a line dash by his name. The index is unique
- * List<LineDashEntity> findByCreatedBy(UserEntity creator) 		find all line dashes from the user <code>creator</code>
+ * Optional<TextDecorationEntity> findByCreatedByAndName(UserEntity creator, String name)
+ * 																		find a text deocration by his name. The index is unique
+ * List<TextDecorationEntity> findByCreatedBy(UserEntity creator) 		find all by a creator
  */
 @Repository
-public interface LineDashRepository extends MongoRepository<LineDashEntity, Long> {
-	
+public interface TextDecorationRepository extends MongoRepository<TextDecorationEntity, Long> {
 	/**
-	 * find a linedash by his name. The index is unique
+	 * find a text deocration by his name. The index is unique
 	 * 
 	 * @param UserEntity creator				the person who create this entity
-	 * @param String name						the name of the linedash
-	 * @return Optional<LineDashEntity>			the found named linedash
+	 * @param String name						the name of the gradient
+	 * @return Optional<TextDecorationEntity>	the found names
 	 */
-	Optional<LineDashEntity> findByCreatedByAndName(UserEntity creator, String name);
+	Optional<TextDecorationEntity> findByCreatedByAndName(UserEntity creator, String name);
 	
 	/**
 	 * find all by a creator
 	 * 
 	 * @param UserEntity creator				the person who create this entity
-	 * @return List<LineDashEntity>				the found line dashes from the creator <code>creator</code>
+	 * @return List<TextDecorationEntity>		the found text decoration von <code>creator</code>
 	 */
-	List<LineDashEntity> findByCreatedBy(UserEntity creator);
+	List<TextDecorationEntity> findByCreatedBy(UserEntity creator);
 	
 }

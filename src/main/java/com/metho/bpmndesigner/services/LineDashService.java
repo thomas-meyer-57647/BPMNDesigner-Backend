@@ -15,11 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.metho.bpmndesigner.exception.ResourceNotFoundException;
-import com.metho.bpmndesigner.model.GradientEntity;
 import com.metho.bpmndesigner.model.LineDashEntity;
 import com.metho.bpmndesigner.model.PaletteEntity;
 import com.metho.bpmndesigner.model.UserEntity;
-import com.metho.bpmndesigner.repositories.GradientRepository;
 import com.metho.bpmndesigner.repositories.LineDashRepository;
 import com.metho.bpmndesigner.repositories.UserRepository;
 
@@ -29,6 +27,7 @@ import com.metho.bpmndesigner.repositories.UserRepository;
  * LineDashEntity createLineDash(UserEntity creator, LineDashEntity linedash)	create a <code>LineDashEntity</code> in the database
  * Optional<LineDashEntity> findById(long linedashID)							get a <code>LineDashEntity</code> with the ID <code>id</code>
  * Optional<LineDashEntity> findByName(LineDashEntity creator, String name) 	get a <code>LineDashEntity</code> by his name <code>name</code>
+ * List<LineDashEntity> findAll(UserEntity creator)								get all line dashes from the user <code>creator</code>
  * final LineDashEntity updateLineDash(UserEntity updaterUser, Long linedashID, LineDashEntity lineDashDetails)
  * 																				update a <code>LineDashEntity</code> with the id <code>linedashID</code> from the User
  * void deleteLineDash(long gradientID) 								 		delete a <code>LineDashEntity</code> uwith the ID <code>id</code>
@@ -91,12 +90,12 @@ public class LineDashService {
 	}
 	    
 	/**
-	 * get all line dashes
+	 * get all line dashes from the user <code>creator</code>
 	 * 
 	 * @return List<User>
 	 */
-	public List<LineDashEntity> findAll() {
-		return lineDashRepository.findAll();
+	public List<LineDashEntity> findAll(UserEntity creator) {
+		return lineDashRepository.findByCreatedBy(creator);
 	}
 	    
 	/**

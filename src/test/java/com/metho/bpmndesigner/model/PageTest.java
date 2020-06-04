@@ -11,18 +11,31 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 /**
- * test function for <code>PatternStyle</code>
+ * test function for <code>Page</code> class
  */
-class PatternStyleTest {
+class PageTest {
 
 	/**
-	 * test getStyleType
+	 * test clone
 	 */
 	@Test
-	void testGetStyleType() {
-		PatternStyle pattern = new PatternStyle();
+	void testClone() {
+		String name = "a page";
+		String description = "a description";
+		Layer layer1 = new Layer();
+		Layer layer2 = new Layer();
+
+		Page page = new Page();
+		page.setName(name);
+		page.setDescription(description);
+		page.getLayers().add(layer1);
+		page.getLayers().add(layer2);
 		
-		assertEquals(EStyleType.PATTERN, pattern.getStyleType());
+		Page newPage = page.clone();
+		
+		assertTrue( page != newPage );
+		assertTrue( page.getLayers() != newPage.getLayers() );
+		assertEquals( page, newPage );
 	}
 
 }

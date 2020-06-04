@@ -24,7 +24,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 /**
  * this is a storable gradient
  * 
- * int id												the id of the collection
+ * int id												the id of the document
  * LocalDateTime createdAt								the created date
  * UserEntity createdBy									the creator
  * LocalDateTime updatedAt								the last update date

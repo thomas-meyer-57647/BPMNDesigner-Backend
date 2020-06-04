@@ -165,5 +165,23 @@ class GroupTest {
 		
 		assertTrue(exception);
 	}
+
+	/**
+	 * test clone
+	 */
+	@Test
+	void testClone() {
+		Group group = new Group();
+		
+		group.name = "a group";
+		group.getDrawobjects().add( new DrawObject() );
+		group.getDrawobjects().add( new DrawObject() );
+		
+		Group newGroup = group.clone();
+		
+		assertTrue( group != newGroup );
+		assertTrue( group.getDrawobjects() != newGroup.getDrawobjects() );
+		assertEquals( group, newGroup );
+	}
 	
 }

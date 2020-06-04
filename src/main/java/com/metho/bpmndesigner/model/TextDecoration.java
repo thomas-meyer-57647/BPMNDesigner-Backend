@@ -8,10 +8,12 @@ import javax.validation.constraints.NotBlank;
  * @version		0.1.2
  --------------------------------------------------------------------------------*/
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * this is the text decoration for a <code>DrawObject</code>
  * 
+ * String name									the name of the decoration
  * Matrix matrix								the transformation matrix
  * String font									the font familie
  * ETextAlign align								the horizontal alignment of the text
@@ -20,6 +22,11 @@ import javax.validation.constraints.NotNull;
 
  */
 public class TextDecoration {
+	
+	@NotBlank
+    @Size(max=100)	
+	private String name;
+	
 	@NotNull
 	private Matrix matrix = new Matrix();							// the transformation matrix
 	
@@ -40,6 +47,27 @@ public class TextDecoration {
 
 	// GETTER / SETTER
 	/**
+	 * get the name of the text decoration
+	 * 
+	 * @return String
+	 */
+	public String getName() {
+		return name;
+	}
+		
+    /**
+	 * set the name of the text decoration
+	 * 
+	 * The name must be not blank and maximal size of 100 characters
+	 * 
+	 * @param String name
+	 * @return void
+	 */
+	public void setName(@NotBlank @Size(max=100) String name) {
+		this.name = name;
+	}
+	
+	/**
 	 * get the matrix of the text decoration
 	 * 
 	 * @return Matrix
@@ -47,7 +75,7 @@ public class TextDecoration {
 	public Matrix getMatrix() {
 		return matrix;
 	}
-	
+
 	/**
 	 * set the matrix of the text decoration
 	 * The Matrix could not be null
@@ -151,6 +179,46 @@ public class TextDecoration {
 		newTextDecoration.direction = this.direction;
 		
 		return newTextDecoration;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((align == null) ? 0 : align.hashCode());
+		result = prime * result + ((baseline == null) ? 0 : baseline.hashCode());
+		result = prime * result + ((direction == null) ? 0 : direction.hashCode());
+		result = prime * result + ((font == null) ? 0 : font.hashCode());
+		result = prime * result + ((matrix == null) ? 0 : matrix.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TextDecoration other = (TextDecoration) obj;
+		if (align != other.align)
+			return false;
+		if (baseline != other.baseline)
+			return false;
+		if (direction != other.direction)
+			return false;
+		if (font == null) {
+			if (other.font != null)
+				return false;
+		} else if (!font.equals(other.font))
+			return false;
+		if (matrix == null) {
+			if (other.matrix != null)
+				return false;
+		} else if (!matrix.equals(other.matrix))
+			return false;
+		return true;
 	}
 
 	@Override

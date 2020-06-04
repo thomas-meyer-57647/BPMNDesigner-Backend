@@ -1,4 +1,5 @@
 package com.metho.bpmndesigner.repositories;
+import java.util.List;
 /*-------------------------------------------------------------------------------	
  * BPMN Designer	
  *-------------------------------------------------------------------------------	
@@ -11,11 +12,17 @@ import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import com.metho.bpmndesigner.model.LineDashEntity;
 import com.metho.bpmndesigner.model.PaletteEntity;
 import com.metho.bpmndesigner.model.UserEntity;
 
 /**
  * the repository for a palette
+ * 
+ *Optional<PaletteEntity> findByCreatedByAndName(UserEntity creator, String name)
+ * 																find a palette by his name. The index is unique
+ * List<PaletteEntity> findByCreatedBy(UserEntity creator) 		find all palettes from the user <code>creator</code>
+
  */
 @Repository
 public interface PaletteRepository extends MongoRepository<PaletteEntity, Long> {
@@ -28,4 +35,12 @@ public interface PaletteRepository extends MongoRepository<PaletteEntity, Long> 
 	 * @return List<PaletteEntity>				the found names
 	 */
 	Optional<PaletteEntity> findByCreatedByAndName(UserEntity creator, String name);
+	
+	/**
+	 * find all by a creator
+	 * 
+	 * @param UserEntity creator				the person who create this entity
+	 * @return List<PaletteEntity>				the found palettes from the creator <code>creator</code>
+	 */
+	List<PaletteEntity> findByCreatedBy(UserEntity creator);
 }

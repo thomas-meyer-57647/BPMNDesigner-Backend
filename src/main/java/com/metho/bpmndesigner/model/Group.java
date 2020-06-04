@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * this is a group of <code>DrawObject</code>
  */
-public class Group {
+public class Group implements AbstractDrawObject {
 	String name;
 	private List<AbstractDrawObject> drawobjects = new ArrayList<AbstractDrawObject>();
 	
@@ -88,6 +88,21 @@ public class Group {
 		this.drawobjects = drawobjects;
 	}
 
+	/**
+	 * clone this group
+	 */
+	public Group clone() {
+		Group newGroup = new Group();
+		
+		newGroup.name = this.name;
+		
+		for( int index=0; index<this.drawobjects.size(); index++ ) {
+			newGroup.drawobjects.add(this.drawobjects.get(index).clone());
+		}
+		
+		return newGroup;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

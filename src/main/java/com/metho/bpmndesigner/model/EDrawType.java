@@ -8,12 +8,18 @@ package com.metho.bpmndesigner.model;
  --------------------------------------------------------------------------------*/
 
 /**
- * interface for all fill styles
+ * This enumeration is used to show a DrawObject what kind of drawing tool it is
+ * 
+ * - LINE
+ * - RECTANGEL,
+ * - BEZIER
+ * - CIRCLE
+ * - POLYGON
  */
-public interface IStyle {
-	EStyleType getStyleType();
-	
-	IStyle clone();
-	int hashCode();
-	boolean equals(Object obj);
+public enum EDrawType {
+	LINE,
+	RECTANGEL,
+	BEZIER,
+	CIRCLE,
+	POLYGON
 }

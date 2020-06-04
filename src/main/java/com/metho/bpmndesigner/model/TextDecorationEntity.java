@@ -7,36 +7,33 @@ package com.metho.bpmndesigner.model;
  * @version		0.1.2
  --------------------------------------------------------------------------------*/
 import java.time.LocalDateTime;
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * this is a storable linedash
+ * this is a storable gradient
  * 
- * int id										the id of the collection
- * LocalDateTime createdAt						the created at
- * UserEntity createdBy							the creator
- * LocalDateTime updatedAt						the last update date
- * UserEntity updatedBy							the updater
+ * int id												the id of the document
+ * LocalDateTime createdAt								the created date
+ * UserEntity createdBy									the creator
+ * LocalDateTime updatedAt								the last update date
+ * UserEntity updatedBy									the updater
  */
-@Document(collection="linedashes")
+@Document(collection="textdecoration")
 @CompoundIndexes({
-    @CompoundIndex(name = "user_linedashes", def = "{'createdBy.id' : 1, 'name': 1}, {unique: true}")
+    @CompoundIndex(name = "user_textdecoration", def = "{'createdBy.id' : 1, 'name': 1}, {unique: true}")
 })
-public class LineDashEntity extends LineDash implements IStoreable {
+public class TextDecorationEntity extends TextDecoration implements IStoreable {
 
 	@Transient
-    public static final String SEQUENCE_NAME = "linedash_sequence";
+    public static final String SEQUENCE_NAME = "textdecoration_sequence";
 	
 	@Id
 	private long id;									// the id of the collection
@@ -54,16 +51,19 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	@DBRef
 	@Field("udated_by")	
 	private UserEntity updatedBy;						// the updater
-		
+
 	/**
-	 * the initialize constructor
+	 * default constructor
+	 * 
+	 * @return void
 	 */
-	public LineDashEntity(String name, @NotNull List<Integer> segments) {
-		super(name, segments);
+	public TextDecorationEntity() {
+		super();
 	}
 	
+	// GETTER / SETTER
 	/**
-	 * get the id of the linedash
+	 * get the id of this entity
 	 * 
 	 * @return long
 	 */
@@ -72,7 +72,7 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	}
 	
 	/**
-	 * set the id of the linedash
+	 * set the id of this entity
 	 * 
 	 * @param long
 	 * @return void
@@ -157,57 +157,9 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-		result = prime * result + ((updatedBy == null) ? 0 : updatedBy.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		LineDashEntity other = (LineDashEntity) obj;
-		if (createdAt == null) {
-			if (other.createdAt != null)
-				return false;
-		} else if (!createdAt.equals(other.createdAt))
-			return false;
-		if (createdBy == null) {
-			if (other.createdBy != null)
-				return false;
-		} else if (!createdBy.equals(other.createdBy))
-			return false;
-		if (id != other.id)
-			return false;
-		if (updatedAt == null) {
-			if (other.updatedAt != null)
-				return false;
-		} else if (!updatedAt.equals(other.updatedAt))
-			return false;
-		if (updatedBy == null) {
-			if (other.updatedBy != null)
-				return false;
-		} else if (!updatedBy.equals(other.updatedBy))
-			return false;
-		return true;
-	}
-
-	@Override
 	public String toString() {
-		return "LineDashEntity [id=" + id + ", createdAt=" + createdAt + ", createdBy=" + createdBy + ", updatedAt="
-				+ updatedAt + ", updatedBy=" + updatedBy + ", getName()=" + getName() + ", getSegments()="
-				+ getSegments() + "]";
+		return "TextDecorationEntity [id=" + id + ", createdAt=" + createdAt + ", createdBy=" + createdBy
+				+ ", updatedAt=" + updatedAt + ", updatedBy=" + updatedBy + "]";
 	}
-
-
+	
 }
