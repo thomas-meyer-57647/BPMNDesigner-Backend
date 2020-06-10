@@ -30,7 +30,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @CompoundIndexes({
     @CompoundIndex(name = "user_textdecoration", def = "{'createdBy.id' : 1, 'name': 1}, {unique: true}")
 })
-public class TextDecorationEntity extends TextDecoration implements IStoreable {
+public class TextDecorationEntity extends TextDecoration {
 
 	@Transient
     public static final String SEQUENCE_NAME = "textdecoration_sequence";
@@ -154,6 +154,52 @@ public class TextDecorationEntity extends TextDecoration implements IStoreable {
 	 */
 	public void setUpdatedBy(UserEntity updated_by) {
 		this.updatedBy = updated_by;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+		result = prime * result + ((updatedBy == null) ? 0 : updatedBy.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TextDecorationEntity other = (TextDecorationEntity) obj;
+		if (createdAt == null) {
+			if (other.createdAt != null)
+				return false;
+		} else if (!createdAt.equals(other.createdAt))
+			return false;
+		if (createdBy == null) {
+			if (other.createdBy != null)
+				return false;
+		} else if (!createdBy.equals(other.createdBy))
+			return false;
+		if (id != other.id)
+			return false;
+		if (updatedAt == null) {
+			if (other.updatedAt != null)
+				return false;
+		} else if (!updatedAt.equals(other.updatedAt))
+			return false;
+		if (updatedBy == null) {
+			if (other.updatedBy != null)
+				return false;
+		} else if (!updatedBy.equals(other.updatedBy))
+			return false;
+		return true;
 	}
 
 	@Override

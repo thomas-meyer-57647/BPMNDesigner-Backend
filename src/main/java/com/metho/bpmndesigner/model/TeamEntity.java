@@ -9,11 +9,16 @@ package com.metho.bpmndesigner.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 /**
@@ -29,7 +34,10 @@ import org.springframework.data.mongodb.core.index.Indexed;
  * List<DocumentEntity> users						the documents who edit by the team member. Contains 1 or more user
  */
 @Document(collection="teams")
-public class TeamEntity implements IStoreable {
+@CompoundIndexes({
+    @CompoundIndex(name = "user_teams", def = "{'createdBy.id' : 1, 'name': 1}, {unique: true}")
+})
+public class TeamEntity {
 	
 	@Transient
     public static final String SEQUENCE_NAME = "team_sequence";
@@ -51,7 +59,8 @@ public class TeamEntity implements IStoreable {
 	@Field("updated_by")	
 	private UserEntity updatedBy;						// the updater
 	
-	@Indexed
+	@NotBlank
+    @Size(max=100)
 	private String name;								// name of the team
 	
 	@DBRef
@@ -100,8 +109,6 @@ public class TeamEntity implements IStoreable {
 		this.users = users;
 		this.documents = documents;
 	}
-
-
 
 	// GETTER / SETTER
 	/**
@@ -271,6 +278,70 @@ public class TeamEntity implements IStoreable {
 		}
 
 		this.documents = documents;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
+		result = prime * result + ((documents == null) ? 0 : documents.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+		result = prime * result + ((updatedBy == null) ? 0 : updatedBy.hashCode());
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TeamEntity other = (TeamEntity) obj;
+		if (createdAt == null) {
+			if (other.createdAt != null)
+				return false;
+		} else if (!createdAt.equals(other.createdAt))
+			return false;
+		if (createdBy == null) {
+			if (other.createdBy != null)
+				return false;
+		} else if (!createdBy.equals(other.createdBy))
+			return false;
+		if (documents == null) {
+			if (other.documents != null)
+				return false;
+		} else if (!documents.equals(other.documents))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (updatedAt == null) {
+			if (other.updatedAt != null)
+				return false;
+		} else if (!updatedAt.equals(other.updatedAt))
+			return false;
+		if (updatedBy == null) {
+			if (other.updatedBy != null)
+				return false;
+		} else if (!updatedBy.equals(other.updatedBy))
+			return false;
+		if (users == null) {
+			if (other.users != null)
+				return false;
+		} else if (!users.equals(other.users))
+			return false;
+		return true;
 	}
 
 	@Override

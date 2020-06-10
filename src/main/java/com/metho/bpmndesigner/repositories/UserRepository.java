@@ -6,8 +6,6 @@ package com.metho.bpmndesigner.repositories;
  * @copyright 	Copyright (C) 2020 Thomas Meyer. License see license.txt
  * @version		0.1.2
  --------------------------------------------------------------------------------*/
-
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;

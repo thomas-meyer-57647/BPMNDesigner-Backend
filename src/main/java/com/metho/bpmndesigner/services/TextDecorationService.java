@@ -61,7 +61,7 @@ public class TextDecorationService {
     			.orElseThrow(() -> new ResourceNotFoundException("Creator not found with the id :: " + creator.getId()));
     	}
     	
-    	textdeocration.setId(sequenceGeneratorService.generateSequence(PaletteEntity.SEQUENCE_NAME));
+    	textdeocration.setId(sequenceGeneratorService.generateSequence(TextDecorationEntity.SEQUENCE_NAME));
     	textdeocration.setCreatedBy(creator);
     	textdeocration.setCreatedAt(LocalDateTime.now());
     	

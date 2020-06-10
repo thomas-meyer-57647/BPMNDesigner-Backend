@@ -34,7 +34,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * String secret								a secret key for reset the password
  */
 @Document(collection="users")
-public class UserEntity implements IStoreable {
+public class UserEntity {
 
 	@Transient
     public static final String SEQUENCE_NAME = "user_sequence";

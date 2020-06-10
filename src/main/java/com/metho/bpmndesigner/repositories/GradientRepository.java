@@ -13,7 +13,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import com.metho.bpmndesigner.model.GradientEntity;
-import com.metho.bpmndesigner.model.TextDecorationEntity;
 import com.metho.bpmndesigner.model.UserEntity;
 
 /**

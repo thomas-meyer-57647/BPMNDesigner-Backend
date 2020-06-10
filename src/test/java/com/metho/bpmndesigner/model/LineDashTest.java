@@ -64,6 +64,25 @@ class LineDashTest {
 	}
 	
 	/**
+	 * test constructor with empty segments list
+	 */
+	@Test
+	void testConstructorWithEmptySegmentsList() {
+		boolean exception = false;
+		String name = "a line dash";
+		@SuppressWarnings("unused")
+		LineDash lineDash = null;
+		List<Integer> segments = new ArrayList<Integer>();
+
+		try {
+			lineDash = new LineDash(name, segments);			
+		} catch (IllegalArgumentException e) {
+			exception = true;
+		}
+		
+		assertTrue(exception);
+	}
+	/**
 	 * test setSegments
 	 */
 	@Test
@@ -107,10 +126,9 @@ class LineDashTest {
 		
 		List<Integer> segments2 = null;
 
-		LineDash lineDash = null;
+		LineDash lineDash = new LineDash(name, segments1);
 		
 		try {
-			lineDash = new LineDash(name, segments1);		
 			lineDash.setSegments(segments2);
 		} catch (IllegalArgumentException e) {
 			exception = true;
@@ -120,33 +138,28 @@ class LineDashTest {
 	}
 	
 	/**
-	 * test clone
+	 * test setSegments with empty list
 	 */
 	@Test
-	void testClone() {
+	void testSetSegmentsWithEmptyList() {
 		boolean exception = false;
 		String name = "a line dash";
 
 		Integer value1 = 1;
-		Integer value2 = 1;
-
-		List<Integer> segments = new ArrayList<Integer>();
-		segments.add(value1);
-		segments.add(value2);
-
-		LineDash lineDash = null;
+		List<Integer> segments1 = new ArrayList<Integer>();
+		segments1.add(value1);
 		
-		exception = false;
+		List<Integer> segments2 =  new ArrayList<Integer>();
+
+		LineDash lineDash = new LineDash(name, segments1);
+		
 		try {
-			lineDash = new LineDash(name, segments);		
+			lineDash.setSegments(segments2);
 		} catch (IllegalArgumentException e) {
 			exception = true;
 		}
-
-		LineDash newLineDash = lineDash.clone();
 		
-		assertTrue( lineDash != newLineDash );
-		assertEquals(lineDash, newLineDash);
+		assertTrue(exception);
 	}
-
+	
 }

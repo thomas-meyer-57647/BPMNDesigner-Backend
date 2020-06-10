@@ -35,8 +35,6 @@ public class ColorStyle extends Color implements IStyle {
 		super(colorvalue, transparency, name);
 	}
 
-
-
 	/**
 	 * initialize constructor
 	 * 
@@ -55,6 +53,15 @@ public class ColorStyle extends Color implements IStyle {
 	public ColorStyle(@Min(0) int colorvalue) {
 		super(colorvalue);
 	}
+	
+	/**
+	 * copy constructor
+	 * 
+	 * @param ColorStyle color
+	 */
+	public ColorStyle(ColorStyle color) {
+		super(color);
+	}
 
 	// Getter
 	/**
@@ -65,19 +72,6 @@ public class ColorStyle extends Color implements IStyle {
 	@Override
 	public EStyleType getStyleType() {
 		return type;
-	}
-	
-	/**
-	 * clone this ColorStyle
-	 */
-	public ColorStyle clone() {
-		ColorStyle newColorStyle = new ColorStyle();
-		
-		newColorStyle.setColorvalue(this.getColorValue());
-		newColorStyle.setTransparency(this.getTransparency());
-		newColorStyle.setName(this.getName());
-		
-		return newColorStyle;
 	}
 
 	@Override

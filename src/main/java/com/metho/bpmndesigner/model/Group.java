@@ -9,12 +9,20 @@ package com.metho.bpmndesigner.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.data.mongodb.core.mapping.Field;
+
 /**
  * this is a group of <code>DrawObject</code>
  */
-public class Group implements AbstractDrawObject {
-	String name;
-	private List<AbstractDrawObject> drawobjects = new ArrayList<AbstractDrawObject>();
+public class Group implements IGroupable {
+	
+	@NotNull
+	@NotEmpty
+	@Field("draw_objects")
+	private List<IGroupable> drawobjects = new ArrayList<IGroupable>();
 	
 	/**
 	 * default constructor
@@ -28,87 +36,54 @@ public class Group implements AbstractDrawObject {
 	/**
 	 * initialize constructor
 	 * 
-	 * if <code>drawobjects</code> is null or size 0 the function will be thrown a
-	 * IllegalArgumentException
+	 * NOTE
+	 * the <code>drawobjects</code> can not be null or empty
 	 * 
-	 * @param drawojbects
+	 * @param List<IGroupable> drawojbects
 	 */
-	public Group(List<AbstractDrawObject> drawobjects) {
+	public Group(List<IGroupable> drawobjects) {
 		super();
-		
-		if ( drawobjects == null || drawobjects.size() == 0) {
-			throw new IllegalArgumentException("Group::constructor(" + drawobjects + ": could not be null and must be have a drawobject");
-		}
-		
-		this.drawobjects = drawobjects;
+
+		this.setDrawObjects(drawobjects);
+	}
+	
+	/**
+	 * copy constructor
+	 * 
+	 * @param Group drawojbects
+	 */
+	public Group(Group group) {
+		this(group.getDrawObjects());
 	}
 
 	// GETTER / SETTER
-	/**
-	 * get the Name of the group
-	 * 
-	 * @return String
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * set the Name of the group
-	 * 
-	 * @param String
-	 * @return void
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 	/**
 	 * get the drawobjects in the group
 	 * 
 	 * @return String
 	 */
-	public List<AbstractDrawObject> getDrawobjects() {
+	public List<IGroupable> getDrawObjects() {
 		return drawobjects;
 	}
 	
 	/**
 	 * set the drawobjects in the group
 	 * 
-	 * If <code>drawobjects</code> null or it has no drawobject, than will this function
-	 * throw an IllegalArgumentException
+	 * NOTE
+	 * the <code>drawobjects</code> can not be null or empty
 	 * 
-	 * @return String
+	 * @param List<IGroupable> drawobjects
+	 * @return null
 	 */
-	public void setDrawobjects(List<AbstractDrawObject> drawobjects) {
-		if ( drawobjects == null || drawobjects.size() == 0) {
-			throw new IllegalArgumentException("Group::constructor(" + drawobjects + ": could not be null and must be have a drawobject");
-		}
-		
+	public void setDrawObjects(List<IGroupable> drawobjects) {
 		this.drawobjects = drawobjects;
 	}
 
-	/**
-	 * clone this group
-	 */
-	public Group clone() {
-		Group newGroup = new Group();
-		
-		newGroup.name = this.name;
-		
-		for( int index=0; index<this.drawobjects.size(); index++ ) {
-			newGroup.drawobjects.add(this.drawobjects.get(index).clone());
-		}
-		
-		return newGroup;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((drawobjects == null) ? 0 : drawobjects.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -126,18 +101,11 @@ public class Group implements AbstractDrawObject {
 				return false;
 		} else if (!drawobjects.equals(other.drawobjects))
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Group [name=" + name + ", drawobjects=" + drawobjects + "]";
+		return "Group [drawobjects=" + drawobjects + "]";
 	}
-	
-	
 }

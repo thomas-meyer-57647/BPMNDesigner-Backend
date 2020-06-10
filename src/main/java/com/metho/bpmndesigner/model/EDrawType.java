@@ -21,5 +21,6 @@ public enum EDrawType {
 	RECTANGEL,
 	BEZIER,
 	CIRCLE,
-	POLYGON
+	POLYGON,
+	BEZIERPOLYGON
 }

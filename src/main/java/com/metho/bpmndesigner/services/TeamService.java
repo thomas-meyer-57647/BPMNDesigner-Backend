@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.metho.bpmndesigner.exception.ResourceNotFoundException;
+import com.metho.bpmndesigner.model.DocumentEntity;
 import com.metho.bpmndesigner.model.TeamEntity;
 import com.metho.bpmndesigner.model.UserEntity;
 import com.metho.bpmndesigner.repositories.TeamRepository;
@@ -60,22 +61,33 @@ public class TeamService {
     }
     
     /**
-     * get all teams
+     * get all teams from the user <code>creator</code>
      * 
-     * @return List<Teamr>
+     * @return List<User>
      */
-    public List<TeamEntity> findAll() {
-        return teamRepository.findAll();
+    public List<TeamEntity> findAll(UserEntity creator) {
+        return teamRepository.findByCreatedBy(creator);
     }
     
     /**
-     * get a <code>Team</code> with the ID <code>id</code>
+     * get a <code>TeamEntity</code> with the ID <code>id</code>
      * 
      * @param Long userID
      * @return Optional<TeamEntity>
      */
     public Optional<TeamEntity> findById(long userId) {
     	return teamRepository.findById(userId);
+    }
+    
+    /**
+     * get a <code>TeamEntity</code> by his name <code>name</code>
+     * 
+     * @param UserEntity creator			the creator of the team
+     * @param String name					the name of the team
+     * @return Optional<DocumentEntity>
+     */
+    public Optional<TeamEntity> findByName(UserEntity creator, String name) {
+    	return teamRepository.findByCreatedByAndName(creator, name);
     }
     
     /**
@@ -107,7 +119,8 @@ public class TeamService {
     /**
      * delete a User update a User with the ID <code>id</code>
      * 
-     * @return ResponseEntity<User>
+     * @param long teamID							the team with the id <code>teamID</code> 
+     * @return void
      * @throws ResourceNotFoundException			if a <code>TeamEntity</code> with the <code>teamID</code> not found
      */
     public void deleteTeam(long teamID) throws ResourceNotFoundException {

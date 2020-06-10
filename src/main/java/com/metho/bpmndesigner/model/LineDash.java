@@ -30,10 +30,9 @@ public class LineDash {
 	
 	@NotBlank
     @Size(max=100)	
-	private String name;					// the name of the gradient
+	private String name;											// the name of the gradient
 
-	@NotNull
-	private List<Integer> segments;			// definition of the line dash
+	private List<Integer> segments = new ArrayList<Integer>();		// definition of the line dash
 
 	/**
 	 * default constructor
@@ -46,22 +45,35 @@ public class LineDash {
 	
 	/**
 	 * initialize constructor
+	 *
+	 * NOTE
+	 * The constructor create a copy of <code>segments</code>
 	 * 
 	 * @param String name						the name of the line dash
 	 * @param List<Integer> segments			the segments of the line dash
 	 * @throw IllegalArgumentException			- if <code>segments</code> null or has a empty list
 	 */
-	public LineDash(@NotBlank @Size(max=100)String name, @NotNull List<Integer> segments) {
+	public LineDash(@NotBlank @Size(max=100)String name, List<Integer> segments) {
 		super();
 		
 		if ( segments == null ) {
 			throw new IllegalArgumentException("LineDash::constructor(" 
-					+ segments + "): Param could not be null");
+					+ segments + "): Segments could not be null");
 		}		
 		
-		this.segments = segments;
+		this.setSegments(segments);
 	}
 
+	/**
+	 * copy constructor
+	 * 
+	 * @param LineDash lineDash
+	 * @throw NullPointerException 				- if the lineDash is null
+	 * 		  IllegalArgumentException			- if <code>segments</code> null or has a empty list
+	 */
+	public LineDash(LineDash lineDash) {
+		this(lineDash.name, lineDash.segments);
+	}
 
 	// Getter / Setter
 	/**
@@ -95,37 +107,28 @@ public class LineDash {
 	/**
 	 * set the segments of the line dash
 	 * 
+	 * NOTE 
+	 * This function create a copy of <code>segments</code>
+	 * 
 	 * @param List<Integer> segments
 	 * @return null
 	 * @throws IllegalArgumentException 		- if the list ist null or empty
 	 */
-	public void setSegments(@NotNull List<Integer> segments) {
+	public void setSegments(List<Integer> segments) {
 		
-		if ( segments == null || segments.size() == 0) {
+		if ( segments == null ) {
 			throw new IllegalArgumentException("LineDash::setLineDash(" 
-					+ segments + "): Param could not be null or empty");
+					+ segments + "): Param could not be null");
 		}		
 		
-		this.segments = segments;
-	}
-	
-	/**
-	 * clone this line dash
-	 * 
-	 * @return LineDash
-	 */
-	public LineDash clone()  {
-		LineDash lineDash = new LineDash();
-		lineDash.name = this.name;
-		lineDash.segments = new ArrayList<Integer>();
-		
-		for (int index=0; index<this.segments.size(); index++) {
-			lineDash.segments.add(this.segments.get(index));
+		List<Integer> newSegmentList = new ArrayList<Integer>();
+		for(int index=0; index<segments.size(); index++) {
+			newSegmentList.add(segments.get(index));
 		}
 		
-		return lineDash;
+		this.segments = newSegmentList;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

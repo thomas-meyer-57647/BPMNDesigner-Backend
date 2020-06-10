@@ -8,7 +8,6 @@ package com.metho.bpmndesigner.model;
  --------------------------------------------------------------------------------*/
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 /**
  * this is a colorstep for a gradient
@@ -20,10 +19,9 @@ public class ColorStop {
 	
 	@Min(0)
 	@Max(1)
-	private double offset;					// the offset of the colorstop
+	private double offset = 0;				// the offset of the colorstop
 	
-	@NotNull								
-	private Color color;					// the color
+	private Color color = new Color(0);		// the color
 	
 	/**
 	 * default constructor
@@ -37,14 +35,25 @@ public class ColorStop {
 	 * 
 	 * @param offset
 	 * @param color
+	 * @throws NullPointerException - if color is null
 	 */
-	public ColorStop(@Min(0) @Max(1) double offset, @NotNull Color color) {
+	public ColorStop(@Min(0) @Max(1) double offset, Color color) {
 		super();
 		
 		this.offset = offset;
-		this.color = color;
+		this.color = new Color(color);
 	}
 
+	/**
+	 * copy constructor
+	 * 
+	 * @param ColorStop colorstop
+	 * @throws NullPointerException - if colorstop is null
+	 */
+	public ColorStop(ColorStop colorstop) {
+		this(colorstop.offset, new Color(colorstop.color));
+	}
+	
 	// Getter / Setter
 	/**
 	 * get the offset of the color stop
@@ -83,26 +92,12 @@ public class ColorStop {
 	 * 
 	 * @return Color
 	 * @public
+	 * @throws NullPointerException - if color is null
 	 */
-	public void setColor( @NotNull Color color) {
-		this.color = color;
+	public void setColor(Color color) {
+		this.color = new Color(color);
 	}
 	
-	/**
-	 * clone this colorstop
-	 * 
-	 * @return ColorStop
-	 * @public
-	 */
-	public ColorStop clone() {
-		ColorStop newColorStop = new ColorStop();
-		
-		newColorStop.color = this.color.clone();
-		newColorStop.offset = this.offset;
-		
-		return newColorStop;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

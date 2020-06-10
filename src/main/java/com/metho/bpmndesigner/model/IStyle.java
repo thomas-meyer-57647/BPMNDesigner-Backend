@@ -13,7 +13,6 @@ package com.metho.bpmndesigner.model;
 public interface IStyle {
 	EStyleType getStyleType();
 	
-	IStyle clone();
 	int hashCode();
 	boolean equals(Object obj);
 }

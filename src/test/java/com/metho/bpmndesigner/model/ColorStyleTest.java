@@ -26,30 +26,5 @@ class ColorStyleTest {
 		
 		assertEquals(EStyleType.COLOR, color.getStyleType());
 	}
-	
-	/**
-	 * test clone
-	 */
-	@Test
-	void testColor() {
-		int colorvalue = 255;
-		Float transparency = 0.5f;
-		String name = "a ColorStyle";
-		
-		ColorStyle colorStyle = new ColorStyle();
-		
-		colorStyle.setColorvalue(colorvalue);
-		colorStyle.setTransparency(transparency);
-		colorStyle.setName(name);
-		
-		ColorStyle newColorStyle = colorStyle.clone();
-		
-		assertTrue(colorStyle != newColorStyle);
-		assertEquals(colorvalue, newColorStyle.getColorValue());
-		assertEquals(transparency, newColorStyle.getTransparency());
-		assertEquals(name, newColorStyle.getName());
-		assertEquals(colorStyle.getStyleType(), newColorStyle.getStyleType());
-	}
-	
 
 }

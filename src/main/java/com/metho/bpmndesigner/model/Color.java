@@ -67,7 +67,16 @@ public class Color {
 	public Color(@Min(0) int colorvalue) {
 		this(colorvalue, null, null);
 	}
-
+	
+	/**
+	 * copy constructor
+	 * 
+	 * @throws NullPointerException - if color is null
+	 */
+	public Color(Color color) {
+		this(color.colorvalue, color.transparency, color.name);
+	}
+	
 	// Getter / Setter
 	/**
 	 * get the color value
@@ -129,21 +138,6 @@ public class Color {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * clone this color
-	 * 
-	 * @return new <code>Color</code>
-	 */
-	public Color clone() {
-		Color newColor = new Color();
-		
-		newColor.colorvalue = this.colorvalue;
-		newColor.transparency = this.transparency;
-		newColor.name = this.name;
-		
-		return newColor;
 	}
 	
 	@Override

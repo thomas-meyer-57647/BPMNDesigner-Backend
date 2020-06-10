@@ -44,6 +44,16 @@ public class GradientStyle extends Gradient implements IStyle {
 	}
 
 	/**
+	 * copy constructor
+	 * 
+	 * @param GradientStyle gradientStyle
+	 */
+	public GradientStyle(GradientStyle gradientStyle) {
+		super(gradientStyle);
+	}
+
+	// GETTER / SETTER
+	/**
 	 * get the type of fill style
 	 * 
 	 * @return EStyleType
@@ -51,32 +61,6 @@ public class GradientStyle extends Gradient implements IStyle {
 	@Override
 	public EStyleType getStyleType() {
 		return type;
-	}
-	
-	/**
-	 * clone this gradient style
-	 * 
-	 * @return GradientStyle
-	 */
-	public GradientStyle clone() {
-		GradientStyle newGradientStyle = new GradientStyle();
-		
-		newGradientStyle.type = this.type;
-		newGradientStyle.setGradientType(this.getGradientType());
-		newGradientStyle.setName(this.getName());
-		newGradientStyle.setIdname(this.getIdname());
-		newGradientStyle.setX1(this.getX1());
-		newGradientStyle.setY1(this.getY1());
-		newGradientStyle.setR1(this.getR1());
-		newGradientStyle.setX2(this.getX2());
-		newGradientStyle.setY2(this.getY2());;
-		newGradientStyle.setR2(this.getR2());
-		
-		for(int index=0; index<this.getColorStops().size(); index++) {
-			newGradientStyle.getColorStops().add(this.getColorStops().get(index).clone());
-		}
-		
-		return newGradientStyle;
 	}
 
 	@Override

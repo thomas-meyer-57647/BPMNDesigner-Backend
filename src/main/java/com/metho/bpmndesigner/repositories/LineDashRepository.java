@@ -11,10 +11,8 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import com.metho.bpmndesigner.model.LineDashEntity;
-import com.metho.bpmndesigner.model.TextDecorationEntity;
 import com.metho.bpmndesigner.model.UserEntity;
 
 /**

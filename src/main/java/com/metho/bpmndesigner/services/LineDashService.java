@@ -61,7 +61,7 @@ public class LineDashService {
 	    		.orElseThrow(() -> new ResourceNotFoundException("Creator not found with the id :: " + creator.getId()));
 	    }
 	    	
-	    linedash.setId(sequenceGeneratorService.generateSequence(PaletteEntity.SEQUENCE_NAME));
+	    linedash.setId(sequenceGeneratorService.generateSequence(LineDashEntity.SEQUENCE_NAME));
 	    linedash.setCreatedBy(creator);
 	    linedash.setCreatedAt(LocalDateTime.now());
 	    	

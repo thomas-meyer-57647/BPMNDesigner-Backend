@@ -39,6 +39,21 @@ public class Matrix {
 		super();
 	}
 
+	/**
+	 * copy constructor
+	 * 
+	 * @param Matrix matrix
+	 * @throws NullPointerException - if matrix is null
+	 */
+	public Matrix(Matrix matrix) {
+		this.a = matrix.a;
+		this.b = matrix.b;
+		this.c = matrix.c;
+		this.d = matrix.d;
+		this.e = matrix.e;
+		this.f = matrix.f;
+	}
+	
 	// Getter / Setter
 	/**
 	 * get segment a of the matrix
@@ -154,24 +169,6 @@ public class Matrix {
 		this.f = f;
 	}
 
-	/**
-	 * clone this martix
-	 * 
-	 * @return newMatrix
-	 */
-	public Matrix clone() {
-		Matrix newMatrix = new Matrix();
-		
-		newMatrix.a = this.a;
-		newMatrix.b = this.b;
-		newMatrix.c = this.c;
-		newMatrix.d = this.d;
-		newMatrix.e = this.e;
-		newMatrix.f = this.f;
-		
-		return newMatrix;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

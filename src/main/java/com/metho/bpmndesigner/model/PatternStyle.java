@@ -23,7 +23,14 @@ public class PatternStyle extends Pattern implements IStyle {
 	public PatternStyle() {
 		super();
 	}
-	
+
+	/**
+	 * copy constructor
+	 */
+	public PatternStyle(PatternStyle patternStyle) {
+		super(patternStyle);
+	}
+
 	/**
 	 * get the pattern style
 	 * 
@@ -32,22 +39,6 @@ public class PatternStyle extends Pattern implements IStyle {
 	@Override
 	public EStyleType getStyleType() {
 		return this.type;
-	}
-
-	/**
-	 * clone this pattern style
-	 * 
-	 * @return EStyleType
-	 */
-	public PatternStyle clone() {
-		PatternStyle newPatternStyle = new PatternStyle();
-		
-		newPatternStyle.setNewFilename( this.getNewFilename() );
-		newPatternStyle.setOriginalFilename( this.getOriginalFilename() );
-		newPatternStyle.setRepeat( this.getRepeat() );
-		newPatternStyle.setMatrix( this.getMatrix().clone() );
-		
-		return newPatternStyle;
 	}
 
 	@Override

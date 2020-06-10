@@ -61,7 +61,7 @@ public class GradientService {
     			.orElseThrow(() -> new ResourceNotFoundException("Creator not found with the id :: " + creator.getId()));
     	}
     	
-    	gradient.setId(sequenceGeneratorService.generateSequence(PaletteEntity.SEQUENCE_NAME));
+    	gradient.setId(sequenceGeneratorService.generateSequence(GradientEntity.SEQUENCE_NAME));
     	gradient.setCreatedBy(creator);
     	gradient.setCreatedAt(LocalDateTime.now());
     	

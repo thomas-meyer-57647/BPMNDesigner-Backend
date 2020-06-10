@@ -104,17 +104,23 @@ class ColorStopTest {
 	}	
 	
 	/**
-	 * test constructor 2 Parameters with Color null
+	 * test constructor 2 Parameters with Color null should throw NullPointerException
 	 */
+	@SuppressWarnings("unused")
 	@Test
-	void testConstructor2ParametersWithColorNull() {
+	void testConstructor2ParametersWithColorNullShouldThrowNullPointerException() {
 		double offset = .1f;
 		Color color = null;
+		boolean exception = false;
+		ColorStop colorstop = null;
 		
-		ColorStop colorstop = new ColorStop(offset, color);
+		try {
+			colorstop = new ColorStop(offset, color);
+		} catch (NullPointerException e) {
+			exception = true;
+		}
 
-		Set<ConstraintViolation<ColorStop>> violations = validator.validate(colorstop);
-		assertFalse(violations.isEmpty());
+		assertTrue(exception);
 	}	
 	
 	/**
@@ -123,7 +129,7 @@ class ColorStopTest {
 	@Test
 	void testGetColorStop() {
 		double offset = 1f;
-		Color color = null;
+		Color color = new Color(254);
 		
 		ColorStop colorstop = new ColorStop(offset, color);
 		
@@ -153,7 +159,7 @@ class ColorStopTest {
 	@Test
 	void testSetColorStopWithOffsetLessThan0() {
 		double offset = -1f;
-		Color color = null;
+		Color color = new Color(255);
 		
 		ColorStop colorstop = new ColorStop(.5f, color);
 		colorstop.setOffset(offset);
@@ -202,7 +208,7 @@ class ColorStopTest {
 	@Test
 	void testSetColorStopWithOffsetGreaterThan0() {
 		double offset = 1.1f;
-		Color color = null;
+		Color color = new Color(245);
 		
 		ColorStop colorstop = new ColorStop(.5f, color);
 		colorstop.setOffset(offset);
@@ -243,38 +249,21 @@ class ColorStopTest {
 	}	
 	
 	/**
-	 * test setColor With Color Null
+	 * test setColor With Color Null should throw an NullPointerException
 	 */
 	@Test
 	void testSetColorWithColorNull() {
 		double offset = 1f;
 		Color color = null;
-		
-		ColorStop colorstop = new ColorStop(offset, new Color(1));
-		colorstop.setColor(color);
 
-		Set<ConstraintViolation<ColorStop>> violations = validator.validate(colorstop);
-		assertFalse(violations.isEmpty());
+		ColorStop colorstop = new ColorStop(offset, new Color(1));
+		boolean exception = false;
+		try {
+			colorstop.setColor(color);
+		} catch (NullPointerException e) {
+			exception = true;
+		}
+		assertTrue(exception);
 	}	
-	
-	/**
-	 * test clone
-	 */
-	@Test
-	void testClone() {
-		Color color = new Color(255);
-		double offset = 0.75;
-		
-		ColorStop colorStop = new ColorStop();
-		colorStop.setColor(color);
-		colorStop.setOffset(offset);
-		
-		ColorStop newColorStop = colorStop.clone();
-		
-		assertNotEquals(colorStop, newColorStop);
-		assertNotEquals(colorStop.getColor(), newColorStop.getColor());
-		assertEquals(color.getColorValue(), newColorStop.getColor().getColorValue());
-		assertEquals(offset, newColorStop.getOffset());
-	}
 	
 }

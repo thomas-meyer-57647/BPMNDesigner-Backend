@@ -9,6 +9,12 @@ package com.metho.bpmndesigner.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.data.mongodb.core.mapping.Field;
+
 /**
  * The layer can be owned by any number of AbstractDrawObjects 
  * 
@@ -24,8 +30,20 @@ import java.util.List;
  * boolean align = true							align with the grid 
  */
 public class Layer {
+
+	@NotBlank
+    @Size(max=100)	
 	private String name;									// the name of layer
-	private List<AbstractDrawObject> drawobjects = new ArrayList<AbstractDrawObject>();
+	
+    @Size(max=100)	
+	private String title;									// the title of layer
+	
+	private String description;								// the description of layer
+	
+	@NotNull
+	@Field("draw_objects")	
+	private List<IGroupable> drawobjects = new ArrayList<IGroupable>();
+
 	private Color color = null;								// the color for <code>color_used</code>
 	private boolean visible = true;							// visible of the drawobjects on this layer
 	private boolean active = true;							// drawobjects can be selected
@@ -72,32 +90,61 @@ public class Layer {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	/**
+	 * get the title of the layer
+	 * 
+	 * @return String
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * set the title of the layer
+	 * 
+	 * @param title
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	
+	/**
+	 * get the description of the layer
+	 * 
+	 * @param title
+	 */
+	public String getDescription() {
+		return description;
+	}
+	
+	/**
+	 * set the description of the layer
+	 * 
+	 * @param title
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	/**
 	 * get the draw objects or group of this layer
 	 * 
-	 * @param List<AbstractDrawObject>
+	 * @param List<IGroupable>
 	 * @return void
 	 */
-	public List<AbstractDrawObject> getDrawobjects() {
+	public List<IGroupable> getDrawobjects() {
 		return drawobjects;
 	}
 	
 	/**
 	 * set the draw objects or group of this layer
 	 * 
-	 * If <code>drawobjects</code> is null this function will be throw
-	 * an IllegalArgumentException
-	 * 
 	 * @param List<AbstractDrawObject>
 	 * @return void
 	 */
-	public void setDrawobjects(List<AbstractDrawObject> drawobjects) {
-		if ( drawobjects == null ) {
-			throw new IllegalArgumentException("Layer::setDrawObjects(" + drawobjects + ": can not be null");
-		}
-		
-		this.drawobjects = drawobjects;
+	public void setDrawObjects(List<IGroupable> drawobjects) {
+		this.drawobjects = (drawobjects == null) ? new ArrayList<IGroupable>() : drawobjects;
 	}
 	
 	/**
@@ -251,31 +298,6 @@ public class Layer {
 		this.align = align;
 	}
 
-	/**
-	 * clone this layer
-	 * 
-	 * @return Layer
-	 */
-	public Layer clone() {
-		Layer newLayer = new Layer();
-		
-		newLayer.name = this.name;
-		newLayer.color = ( this.color == null) ? null : this.color.clone();
-		newLayer.visible = this.visible;
-		newLayer.active = this.active;
-		newLayer.locked = this.locked;
-		newLayer.glue = this.glue;
-		newLayer.printable = this.printable;
-		newLayer.color_used = this.color_used;
-		newLayer.align = this.align;
-
-		for( int index=0; index<this.drawobjects.size(); index++) {
-			newLayer.drawobjects.add( this.drawobjects.get(index).clone() );
-		}
-		
-		return newLayer; 
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -284,11 +306,13 @@ public class Layer {
 		result = prime * result + (align ? 1231 : 1237);
 		result = prime * result + ((color == null) ? 0 : color.hashCode());
 		result = prime * result + (color_used ? 1231 : 1237);
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((drawobjects == null) ? 0 : drawobjects.hashCode());
 		result = prime * result + (glue ? 1231 : 1237);
 		result = prime * result + (locked ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + (printable ? 1231 : 1237);
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + (visible ? 1231 : 1237);
 		return result;
 	}
@@ -313,6 +337,11 @@ public class Layer {
 			return false;
 		if (color_used != other.color_used)
 			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
 		if (drawobjects == null) {
 			if (other.drawobjects != null)
 				return false;
@@ -329,6 +358,11 @@ public class Layer {
 			return false;
 		if (printable != other.printable)
 			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
 		if (visible != other.visible)
 			return false;
 		return true;
@@ -336,10 +370,11 @@ public class Layer {
 
 	@Override
 	public String toString() {
-		return "Layer [Name=" + name + ", drawobjects=" + drawobjects + ", color=" + color + ", visible=" + visible
-				+ ", active=" + active + ", locked=" + locked + ", glue=" + glue + ", printable=" + printable
-				+ ", color_used=" + color_used + ", align=" + align + "]";
+		return "Layer [name=" + name + ", title=" + title + ", description=" + description + ", drawobjects="
+				+ drawobjects + ", color=" + color + ", visible=" + visible + ", active=" + active + ", locked="
+				+ locked + ", glue=" + glue + ", printable=" + printable + ", color_used=" + color_used + ", align="
+				+ align + "]";
 	}
-	
+
 	
 }

@@ -45,6 +45,37 @@ public class TextDecoration {
 		super();
 	}
 
+	/**
+	 * initialize constructor
+	 */
+    public TextDecoration(@NotBlank @Size(max = 100) String name, @NotNull Matrix matrix, @NotBlank String font,
+			ETextAlign align, ETextBaseline baseline, ETextDirection direction) {
+		super();
+		this.name = name;
+		this.setMatrix(matrix);
+		this.font = font;
+		this.align = align;
+		this.baseline = baseline;
+		this.direction = direction;
+	}
+	
+    /**
+     * copy constructor
+     * 
+     * @param textDecoration
+     * @throws NullPointerException - if <code>textDecoration</code> is null
+     */
+	public TextDecoration(TextDecoration textDecoration) {
+		this (
+			textDecoration.name,
+			textDecoration.matrix,
+			textDecoration.font,
+			textDecoration.align,
+			textDecoration.baseline,
+			textDecoration.direction
+		);
+	}
+
 	// GETTER / SETTER
 	/**
 	 * get the name of the text decoration
@@ -55,7 +86,8 @@ public class TextDecoration {
 		return name;
 	}
 		
-    /**
+
+	/**
 	 * set the name of the text decoration
 	 * 
 	 * The name must be not blank and maximal size of 100 characters
@@ -83,8 +115,8 @@ public class TextDecoration {
 	 * @param Matrix
 	 * @return void
 	 */
-	public void setMatrix(@NotNull Matrix matrix) {
-		this.matrix = matrix;
+	public void setMatrix(Matrix matrix) {
+		this.matrix = new Matrix(matrix);
 	}
 	
     /**
@@ -164,23 +196,6 @@ public class TextDecoration {
 		this.direction = direction;
 	}
 	
-	/**
-	 * clone this text decoration
-	 * 
-	 * @return TextDecoration
-	 */
-	public TextDecoration clone() {
-		TextDecoration newTextDecoration = new TextDecoration();
-		
-		newTextDecoration.matrix = this.matrix.clone();
-		newTextDecoration.font = this.font;
-		newTextDecoration.align = this.align;
-		newTextDecoration.baseline = this.baseline;
-		newTextDecoration.direction = this.direction;
-		
-		return newTextDecoration;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

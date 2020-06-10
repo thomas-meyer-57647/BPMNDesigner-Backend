@@ -33,7 +33,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @CompoundIndexes({
     @CompoundIndex(name = "user_linedashes", def = "{'createdBy.id' : 1, 'name': 1}, {unique: true}")
 })
-public class LineDashEntity extends LineDash implements IStoreable {
+public class LineDashEntity extends LineDash {
 
 	@Transient
     public static final String SEQUENCE_NAME = "linedash_sequence";
@@ -56,12 +56,28 @@ public class LineDashEntity extends LineDash implements IStoreable {
 	private UserEntity updatedBy;						// the updater
 		
 	/**
+	 * default constructor
+	 */
+	public LineDashEntity() {
+		super();
+	}
+	
+	/**
 	 * the initialize constructor
 	 */
 	public LineDashEntity(String name, @NotNull List<Integer> segments) {
 		super(name, segments);
 	}
-	
+
+	/**
+	 * copy constructor
+	 * 
+	 * @param LineDash lineDash
+	 */
+	public LineDashEntity(LineDash lineDash) {
+		super(lineDash);
+	}
+
 	/**
 	 * get the id of the linedash
 	 * 

@@ -9,6 +9,10 @@ package com.metho.bpmndesigner.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * a <code>page</code> is a part of a <code>Document</code>. 
  * Every <code>page</code> contains one or more <code>layer</code> 
@@ -18,8 +22,14 @@ import java.util.List;
  * List<Layer> layers								the layers of the page
  */
 public class Page {
+	
+	@NotBlank
+    @Size(max=100)
 	private String name;											// the name of the page
+	
 	private String description;										// a detail description of the page
+
+	@NotNull
 	private List<Layer> layers = new ArrayList<Layer>();			// the layers of the page
 
 	/**
@@ -120,11 +130,11 @@ public class Page {
 		
 		newPage.name = this.name;
 		newPage.description = this.description;
-		
+	/*	
 		for (int index=0; index<this.layers.size(); index++) {
 			newPage.layers.add( this.layers.get(index).clone() );
 		}
-		
+	*/	
 		return newPage;
 	}
 	

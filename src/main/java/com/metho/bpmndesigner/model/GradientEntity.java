@@ -9,9 +9,7 @@ package com.metho.bpmndesigner.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -19,7 +17,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;import org.springfram
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 /**
  * this is a storable gradient
@@ -34,7 +31,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 @CompoundIndexes({
     @CompoundIndex(name = "user_gradients", def = "{'createdBy.id' : 1, 'name': 1}, {unique: true}")
 })
-public class GradientEntity extends Gradient implements IStoreable {
+public class GradientEntity extends Gradient {
 	
 	@Transient
     public static final String SEQUENCE_NAME = "gradient_sequence";
@@ -85,7 +82,7 @@ public class GradientEntity extends Gradient implements IStoreable {
 	}
 
 	/**
-	 * get id of the palette
+	 * get id of the gradient
 	 * 
 	 * @return long
 	 * @public
@@ -95,7 +92,7 @@ public class GradientEntity extends Gradient implements IStoreable {
 	}
 	
 	/**
-	 * set id of the palette
+	 * set id of the gradient
 	 * 
 	 * @param long
 	 * @return void
@@ -178,6 +175,52 @@ public class GradientEntity extends Gradient implements IStoreable {
 	 */
 	public void setUpdatedBy(UserEntity updated_by) {
 		this.updatedBy = updated_by;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+		result = prime * result + ((updatedBy == null) ? 0 : updatedBy.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GradientEntity other = (GradientEntity) obj;
+		if (createdAt == null) {
+			if (other.createdAt != null)
+				return false;
+		} else if (!createdAt.equals(other.createdAt))
+			return false;
+		if (createdBy == null) {
+			if (other.createdBy != null)
+				return false;
+		} else if (!createdBy.equals(other.createdBy))
+			return false;
+		if (id != other.id)
+			return false;
+		if (updatedAt == null) {
+			if (other.updatedAt != null)
+				return false;
+		} else if (!updatedAt.equals(other.updatedAt))
+			return false;
+		if (updatedBy == null) {
+			if (other.updatedBy != null)
+				return false;
+		} else if (!updatedBy.equals(other.updatedBy))
+			return false;
+		return true;
 	}
 
 	@Override
