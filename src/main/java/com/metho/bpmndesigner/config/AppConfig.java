@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
  * this is the configaurtion class
  */
 @Configuration
-@PropertySource(value = { "classpath:bpmndesigner.properties" })
+// @PropertySource(value = { "classpath:bpmndesigner.properties" })
 public class AppConfig {
     
 }

@@ -19,10 +19,18 @@ package com.metho.bpmndesigner.model;
  * 
  * the matrix is build by:
  * 
- * a | b | c
- * d | e | f
+ * a | c | e
+ * b | d | f
  * 0 | 0 | 1
  * 
+ * a (m11)				Horizontal scaling. A value of 1 results in no scaling.
+ * b (m12)				Vertical skewing.
+ * c (m21)				Horizontal skewing.
+ * d (m22)				Vertical scaling. A value of 1 results in no scaling.
+ * e (dx)				Horizontal translation (moving).
+ * f (dy)				Vertical translation (moving).
+ *   
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/transform
  */
 public class Matrix {
 	private float a;
